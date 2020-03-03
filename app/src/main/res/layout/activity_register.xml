@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <EditText
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
+        android:layout_marginBottom="68dp"
         android:ems="10"
         android:hint="@string/Name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,37 +25,37 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="88dp"
         android:ems="10"
         android:hint="@string/Email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
         android:id="@+id/create"
-        android:layout_width="216dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="156dp"
+        android:layout_width="206dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="167dp"
         android:text="@string/CreateAccountButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/password" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="138dp"
-        android:layout_marginBottom="138dp"
+        android:layout_marginBottom="77dp"
         android:ems="10"
         android:hint="@string/Password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/create"
+        app:layout_constraintBottom_toTopOf="@+id/create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/email"
-        app:layout_constraintVertical_bias="1.0"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 </androidx.constraintlayout.widget.ConstraintLayout>

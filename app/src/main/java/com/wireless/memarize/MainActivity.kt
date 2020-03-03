@@ -11,17 +11,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var login = false
-        var email = ""
-        var password = ""
+        var email = "null"
+        var password = "null"
         val bundle = intent.getBundleExtra("Bundle")
-        if(bundle!==null) {
-            email = bundle.getString("Email", null)
-            password = bundle.getString("Password", null)
+        if (bundle !== null) {
+            email = bundle.getString("Email", "null")
+            password = bundle.getString("Password", "null")
             login = bundle.getBoolean("Login", false)
         }
-        Toast.makeText(this, "Current status Login:$login\nEmail:$email\nPassword:$password", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            "Current status\nLogin: $login\nEmail: $email\nPassword: $password",
+            Toast.LENGTH_LONG
+        ).show()
         if (!login) {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

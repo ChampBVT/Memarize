@@ -5,4 +5,5 @@
     <string name="Password">Password</string>
     <string name="CreateAccountButton">Create an Account</string>
     <string name="Welcome">Welcome</string>
+    <string name="SignIn">Sign In</string>
 </resources>

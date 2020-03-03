@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(
                             this,
-                            "Successfully Registered as $emailText and $passwordText",
+                            "Successfully Registered as $emailText\nPassword: $passwordText",
                             Toast.LENGTH_LONG
                         ).show()
                         val intent = Intent(this, MainActivity::class.java).apply {
