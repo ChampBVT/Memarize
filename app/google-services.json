@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1006052689639",
+    "firebase_url": "https://memarize-2ae53.firebaseio.com",
+    "project_id": "memarize-2ae53",
+    "storage_bucket": "memarize-2ae53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006052689639:android:0a3c0f74130d5f4f900442",
+        "android_client_info": {
+          "package_name": "com.wireless.memarize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006052689639-pfrf5cth4l83pen779urdfb2877kojgd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0koQNwkvKBc1cdw02C8TVdR43pdfXla8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006052689639-pfrf5cth4l83pen779urdfb2877kojgd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
