@@ -4,6 +4,9 @@
 #### open cmd 
 #### git clone https://github.com/ChampBVT/Memarize/
 
+#### download google-services.json https://console.firebase.google.com/project/memarize-2ae53/settings/general/android:com.wireless.memarize
+#### put it in the main folder
+
 ### Update lastest version:
 #### git pull origin branchname
 
