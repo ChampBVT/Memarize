@@ -4,58 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context=".RegisterActivity">
 
-    <EditText
-        android:id="@+id/name"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_marginBottom="68dp"
-        android:ems="10"
-        android:hint="@string/Name"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        android:layout_marginTop="141dp"
+        android:contentDescription="@string/GetStarted"
+        android:text="@string/GetStarted"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
-        android:ems="10"
-        android:hint="@string/Email"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <Button
-        android:id="@+id/create"
-        android:layout_width="206dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="167dp"
-        android:text="@string/CreateAccountButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/GetStarted" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="77dp"
+        android:layout_marginTop="19dp"
         android:ems="10"
         android:hint="@string/Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/create"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:hint="@string/Name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/blue_rounded_button"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        android:text="@string/CreateAccountButton"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

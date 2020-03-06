@@ -4,61 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="17dp"
         android:contentDescription="@string/Memarize"
         android:text="@string/Memarize"
+        android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:text="@string/Memarize" />
 
-    <Button
-        android:id="@+id/login_bttn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginBottom="13dp"
-        android:text="@string/SignIn"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintStart_toStartOf="@+id/register" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="76dp"
         android:contentDescription="@string/WelcomeTo"
         android:text="@string/WelcomeTo"
+        android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/WelcomeTo" />
 
-    <EditText
-        android:id="@+id/password_et"
+    <Button
+        android:id="@+id/login_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
-        android:ems="10"
-        android:hint="@string/Password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/email_et"
-        app:layout_constraintTop_toBottomOf="@+id/email_et" />
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/rounded_login_button"
+        android:color="@color/button_red"
+        android:paddingLeft="60sp"
+        android:paddingRight="60sp"
+        android:text="@string/SignIn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/password_et"
+        app:layout_constraintTop_toBottomOf="@+id/password_et" />
+
+    <Button
+        android:id="@+id/register"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="@string/CreateAccountButton"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/login_bttn"
+        app:layout_constraintTop_toBottomOf="@+id/login_bttn" />
 
     <EditText
         android:id="@+id/email_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="37dp"
         android:ems="10"
         android:hint="@string/Email"
         android:inputType="textEmailAddress"
@@ -66,14 +72,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
-        android:id="@+id/register"
+    <EditText
+        android:id="@+id/password_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="92dp"
-        android:text="@string/CreateAccountButton"
-        app:layout_constraintStart_toStartOf="@+id/password_et"
-        app:layout_constraintTop_toBottomOf="@+id/password_et" />
+        android:ems="10"
+        android:hint="@string/Password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/email_et"
+        app:layout_constraintTop_toBottomOf="@+id/email_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
