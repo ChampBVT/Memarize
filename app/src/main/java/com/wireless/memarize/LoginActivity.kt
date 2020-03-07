@@ -1,6 +1,9 @@
 package com.wireless.memarize
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -16,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var emailEt: EditText
     private lateinit var passwordEt: EditText
-    private lateinit var loginBttn: Button
+    private lateinit var loginBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +27,19 @@ class LoginActivity : AppCompatActivity() {
 
         emailEt = findViewById(R.id.email_et)
         passwordEt = findViewById(R.id.password_et)
-        loginBttn = findViewById(R.id.login_bttn)
+        loginBtn = findViewById(R.id.login_bttn)
         registerBtn = findViewById(R.id.register)
 
         auth = FirebaseAuth.getInstance()
 
-        loginBttn.setOnClickListener{
-            Toast.makeText(this, "Login Button pressed", Toast.LENGTH_LONG).show()
-            var email: String = emailEt.text.toString()
-            var password: String = passwordEt.text.toString()
+        loginBtn.setOnClickListener{
+            //Toast.makeText(this, "Login Button pressed", Toast.LENGTH_LONG).show()
+            loginBtn.isEnabled = false
+            val email: String = emailEt.text.toString()
+            val password: String = passwordEt.text.toString()
             if(TextUtils.isEmpty(email)||TextUtils.isEmpty(password)){
                 Toast.makeText(this@LoginActivity, "Please fill in all the fields", Toast.LENGTH_LONG).show()
+                loginBtn.isEnabled = true
             }else{
                 auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful){
@@ -44,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }else{
                         Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
+                        loginBtn.isEnabled = true
                     }
                 })
             }
@@ -52,8 +58,15 @@ class LoginActivity : AppCompatActivity() {
         registerBtn.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         }
+
+        val broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(arg0: Context, intent: Intent) {
+                val action = intent.action
+                if (action == "Close_Login_Activity") {finish()}
+            }
+        }
+        registerReceiver(broadcastReceiver, IntentFilter("Close_Login_Activity"))
     }
 
 
