@@ -3,6 +3,7 @@ package com.wireless.memarize
 import android.R.attr.key
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -29,30 +30,38 @@ class RegisterActivity : AppCompatActivity() {
         createBtn.setOnClickListener {
             val emailText = email.text.toString()
             val passwordText = password.text.toString()
-            auth.createUserWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(this, OnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "Successfully Registered as $emailText\nPassword: $passwordText",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        val intent = Intent(this, MainActivity::class.java).apply {
-                            val bundle = Bundle()
-                            bundle.putString("Email", emailText)
-                            bundle.putString("Password", passwordText)
-                            bundle.putBoolean("Login", true)
-                            putExtra("Bundle", bundle)
+            if(TextUtils.isEmpty(emailText)|| TextUtils.isEmpty(passwordText)){
+                Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_LONG).show()
+            } else {
+                auth.createUserWithEmailAndPassword(emailText, passwordText)
+                    .addOnCompleteListener(this, OnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                this,
+                                "Successfully Registered as $emailText\nPassword: $passwordText",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val intent = Intent(this, MainActivity::class.java).apply {
+                                val bundle = Bundle()
+                                bundle.putString("Email", emailText)
+                                bundle.putString("Password", passwordText)
+                                bundle.putBoolean("Login", true)
+                                putExtra("Bundle", bundle)
+                            }
+                            val closeLoginActivity = Intent("Close_Login_Activity")
+                            sendBroadcast(closeLoginActivity)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Log.d("test", "createUserWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                this, "User Authentication Failed: " + (task.exception?.message
+                                    ?: "No error message"), Toast.LENGTH_SHORT
+                            ).show();
+                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show()
                         }
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Log.d("test", "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(this, "User Authentication Failed: " + (task.exception?.message
-                            ?: "No error message"), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show()
-                    }
-                })
+                    })
+            }
         }
     }
 

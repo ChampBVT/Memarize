@@ -41,11 +41,10 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="34dp"
         android:background="@drawable/rounded_login_button"
-        android:color="@color/button_red"
         android:paddingLeft="60sp"
         android:paddingRight="60sp"
         android:text="@string/SignIn"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/bright_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/password_et"
         app:layout_constraintTop_toBottomOf="@+id/password_et" />
 
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:text="@string/CreateAccountButton"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/bright_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/login_bttn"
         app:layout_constraintTop_toBottomOf="@+id/login_bttn" />
 
@@ -70,7 +69,8 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/password_et"
