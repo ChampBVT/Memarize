@@ -7,4 +7,5 @@
     <color name="end_color">#488B8F</color>
     <color name="button_red">#DC3C3C</color>
     <color name="confirm_blue">#1976D2</color>
+    <color name="white">#ffffff</color>
 </resources>
