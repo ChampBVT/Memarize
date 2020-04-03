@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     private lateinit var signOutBtn: Button
     private lateinit var textHeader: TextView
@@ -27,33 +30,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        auth = FirebaseAuth.getInstance()
         textHeader = findViewById(R.id.welcomeHeader)
         petInfo = findViewById(R.id.petInfo)
         signOutBtn = findViewById(R.id.signOut)
-        auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser;
-        if (user == null) {
+//        val sharedPref =
+//            this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
+//        Toast.makeText(
+//            this,
+//            "Current status \nName: ${sharedPref.getString("name", "kuy")}",
+//            Toast.LENGTH_LONG
+//        ).show()
+        imageView = findViewById(R.id.petStatus)
+        signOutBtn.setOnClickListener {
+            auth.signOut()
             goToLoginIntent()
-        } else {
-            val sharedPref = this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
-            Toast.makeText(
-                this,
-                "Current status \nName: ${sharedPref.getString("name", "kuy")}",
-                Toast.LENGTH_LONG
-            ).show()
-            textHeader.text = sharedPref.getString("name", "")
-            getUserInfo(user.uid)
-            imageView = findViewById(R.id.petStatus)
-            signOutBtn.setOnClickListener {
-                auth.signOut()
-                goToLoginIntent()
-            }
         }
     }
 
     override fun onStart() {
         super.onStart()
+        getEncryptedSharePreferences()
         imageView.setImageResource(R.drawable.c1)
     }
 
@@ -63,34 +60,22 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getUserInfo(uid: String) {
-        val database = FirebaseDatabase.getInstance().reference
-        var userName: String?
-        var email: String?
-        var petName: String?
-        var petType: String?
-        database.child("users").child(uid).addListenerForSingleValueEvent(
-            object : ValueEventListener {
-                @SuppressLint("SetTextI18n")
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val user = dataSnapshot.getValue(User::class.java)
-                    if (user != null) {
-                        userName = user.name
-                        email = user.email
-                        petName = user.petName
-                        petType = user.petType
-                        textHeader.text = "Hi $userName!"
-                        petInfo.text = "Your pet $petName is sleepy."
-                        setSharePreferences(userName!!)
-                        showToast(userName!!, email!!, uid)
-                    }
-                }
+    private fun getEncryptedSharePreferences() {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
-                }
-
-            })
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PreferencesFilename",
+            masterKeyAlias,
+            applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        val userName = sharedPreferences.getString("userName", "default")
+        val petName = sharedPreferences.getString("petName", "default")
+        val greeting = "Hi $userName!"
+        val petSaid = "Your pet $petName is sleepy."
+        textHeader.text = greeting
+        petInfo.text = petSaid
     }
 
     private fun showToast(userName: String, email: String, uid: String) {
@@ -100,14 +85,5 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
     }
-
-    private fun setSharePreferences(userName:String){
-        val sharedPref = this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putString(getString(R.string.name_key), userName)
-            commit()
-        }
-    }
-
 
 }

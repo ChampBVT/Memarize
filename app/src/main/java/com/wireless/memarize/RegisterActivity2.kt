@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -73,7 +75,9 @@ class RegisterActivity2 : AppCompatActivity() {
                         ).show()
                         val intent = Intent(this, MainActivity::class.java)
                         val closeLoginActivity = Intent("Close_Login_Activity")
+                        val closeRegisterActivity = Intent("Close_Register_Activity")
                         sendBroadcast(closeLoginActivity)
+                        sendBroadcast(closeRegisterActivity)
                         startActivity(intent)
                         finish()
                     } else {
@@ -91,12 +95,33 @@ class RegisterActivity2 : AppCompatActivity() {
     private fun createUser(name:String, email:String, petName:String, petType: String){
         val databaseRef = database.reference
         val user = User(name, email, petName, petType, 0)
-        databaseRef.child("users").child(auth.currentUser?.uid.toString()).setValue(user)
+        val uid = auth.currentUser?.uid.toString()
+        databaseRef.child("users").child(uid).setValue(user)
             .addOnCompleteListener(this, OnCompleteListener { task ->
             Toast.makeText(
                 this, "Failed: " + (task.exception?.message
                     ?: "No error message"), Toast.LENGTH_SHORT
             ).show();
         });
+        setEncryptedSharePreferences(name, email, uid, petName, petType, 0)
+    }
+
+    private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PreferencesFilename",
+            masterKeyAlias,
+            applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        sharedPreferences.edit()
+            .putString("userName", userName)
+            .putString("email", email)
+            .putString("uid", uid)
+            .putString("petName", petName)
+            .putString("petType", petType)
+            .putLong("coins", coins)
+            .apply()
     }
 }
