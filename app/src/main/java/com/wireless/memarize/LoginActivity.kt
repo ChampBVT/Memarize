@@ -21,6 +21,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEt: EditText
     private lateinit var loginBtn: Button
 
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(arg0: Context, intent: Intent) {
+            val action = intent.action
+            if (action == "Close_Login_Activity") {
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -60,14 +69,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val broadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(arg0: Context, intent: Intent) {
-                val action = intent.action
-                if (action == "Close_Login_Activity") {finish()}
-            }
-        }
         registerReceiver(broadcastReceiver, IntentFilter("Close_Login_Activity"))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
+    }
 
 }

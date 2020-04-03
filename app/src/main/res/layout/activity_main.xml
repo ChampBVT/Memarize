@@ -7,14 +7,47 @@
     android:background="@drawable/gradient"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/welcomeHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="83dp"
-        android:text="@string/Welcome"
+        android:layout_gravity="center"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="154dp"
+        android:gravity="center"
+        android:text="Hi Sam!"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view3"
+        style="@style/Divider"
+        android:layout_width="292dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="496dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        style="@style/Divider"
+        android:layout_width="292dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="204dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view2"
+        style="@style/Divider"
+        android:layout_width="0.5dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="205dp"
+        android:layout_marginTop="535dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,10 +55,44 @@
         android:id="@+id/signOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="306dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="564dp"
         android:text="@string/SignOut"
         android:textColor="@color/bright_text_dark_focused"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/petInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="182dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginEnd="182dp"
+        android:gravity="center"
+        android:text="testpetname"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/petStatus"
+        android:layout_width="200dp"
+        android:layout_height="199dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="245dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="564dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
