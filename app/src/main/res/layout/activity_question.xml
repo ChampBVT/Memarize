@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+    <TextView
+        android:id="@+id/Chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chapter 1"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <View
+        android:id="@+id/barOverVocab1"
+        style="@style/Divider"
+        android:layout_width="292dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="254dp" />
+
+    <TextView
+        android:id="@+id/Vocabulary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vocabulary"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="277dp" />
+
+    <View
+        android:id="@+id/barOverVocab2"
+        style="@style/Divider"
+        android:layout_width="292dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="324dp" />
+
+    <Button
+        android:id="@+id/choice1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/choice_button"
+        android:text="Choice1"
+        android:textColor="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="353dp" />
+
+    <Button
+        android:id="@+id/choice2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/choice_button"
+        android:text="Choice2"
+        android:textColor="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="413dp" />
+
+    <Button
+        android:id="@+id/choice3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/choice_button"
+        android:text="Choice3"
+        android:textColor="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+    <Button
+        android:id="@+id/choice4"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/choice_button"
+        android:text="Choice4"
+        android:textColor="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="528dp" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: "
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="602dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
