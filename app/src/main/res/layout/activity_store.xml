@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    android:background="@drawable/gradient"
+    tools:context=".StoreActivity">
 
     <TextView
         android:id="@+id/Store"
@@ -54,7 +55,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"
             android:layout_width="320dp"
-            android:layout_height="434dp"
+            android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="45dp"
             tools:layout_editor_absoluteY="224dp" />
 

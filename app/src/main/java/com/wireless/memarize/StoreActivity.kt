@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class StoreActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store)
 
@@ -22,9 +22,11 @@ class StoreActivity : AppCompatActivity() {
         item.add(Item("Recover your pet from sickness", "20 mins", "x150"))
         item.add(Item("Recover your pet from boredom", "300 mins", "x20"))
         item.add(Item("Recover your pet from thirstiness", "3 mins", "x12000"))
-        item.add(Item("Recover your pet from injury", "1 mins", "x120000000"))
+        item.add(Item("Recover your pet from injury", "1 mins", "x12"))
+        item.add(Item("Recover your pet from injury", "1 mins", "x1"))
+        item.add(Item("Recover your pet from injury", "1 mins", "x2"))
 
-        val adapter = itemRecyclerViewAdapter(item)
+        val adapter = ItemRecyclerViewAdapter(item)
         itemRecyclerView.adapter = adapter
     }
 }

@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class itemRecyclerViewAdapter (private val itemList: ArrayList<Item>) :
+class ItemRecyclerViewAdapter (private val itemList: ArrayList<Item>) :
 
-    RecyclerView.Adapter<itemRecyclerViewAdapter.ViewHolder>(){
+    RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
@@ -27,7 +27,7 @@ class itemRecyclerViewAdapter (private val itemList: ArrayList<Item>) :
     }
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item){
-        var title: TextView = item.findViewById(R.id.itemTitle)
+        var title:TextView = item.findViewById(R.id.itemTitle)
         var desc1:TextView = item.findViewById(R.id.itemDesc1)
         var desc2:TextView = item.findViewById(R.id.itemDesc2)
     }
