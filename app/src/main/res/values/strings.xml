@@ -10,4 +10,13 @@
     <string name="Memarize">Memarize</string>
     <string name="GetStarted">Let\'s get started!</string>
     <string name="SignOut">Sign Out</string>
+    <string name="NameYourPet">Name your pet!</string>
+    <string name="Petname">Pet Name...</string>
+    <string name="petSelection">Pet Selection</string>
+    <string name="Next">Next</string>
+    <string name="Hi">Hi</string>
+    <string name="petInfo" />
+    <string name="todo">TODO</string>
+    <string name="landingText"><![CDATA[An interactive English learning & pet system]]></string>
+    <string name="name_key">name</string>
 </resources>
