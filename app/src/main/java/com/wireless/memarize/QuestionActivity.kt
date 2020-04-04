@@ -1,9 +1,9 @@
 package com.wireless.memarize;
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -23,7 +23,7 @@ class QuestionActivity : AppCompatActivity() {
         object : CountDownTimer(questionTime, 1000) {
             override fun onFinish() {
                 showToast()
-                //TODO("Not yet implemented")
+                goToMainIntent()
             }
 
             override fun onTick(millisUntilFinished: Long) {}
@@ -45,5 +45,11 @@ class QuestionActivity : AppCompatActivity() {
             "หมดเวลาแล้วจ้า",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun goToMainIntent() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
