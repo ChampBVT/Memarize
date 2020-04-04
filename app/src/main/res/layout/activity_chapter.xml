@@ -10,15 +10,18 @@
         android:id="@+id/chapterQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:layout_marginBottom="600dp"
         android:contentDescription="@string/WhereToStart"
         android:text="@string/WhereToStart"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="104dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -38,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="45dp"
-            tools:layout_editor_absoluteY="224dp"/>
+            tools:layout_editor_absoluteY="224dp" />
     </LinearLayout>
 
 

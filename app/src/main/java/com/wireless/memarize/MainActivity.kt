@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var petInfo: TextView
     private lateinit var imageView: ImageView
     private lateinit var storeBtn: Button
+    private lateinit var playBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         petInfo = findViewById(R.id.petInfo)
         signOutBtn = findViewById(R.id.signOut)
         storeBtn = findViewById(R.id.store)
+        playBtn = findViewById(R.id.play)
 //        val sharedPref =
 //            this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
 //        Toast.makeText(
@@ -50,6 +52,9 @@ class MainActivity : AppCompatActivity() {
         }
         storeBtn.setOnClickListener {
             goToStoreIntent()
+        }
+        playBtn.setOnClickListener {
+            goToChapterIntent()
         }
     }
 
@@ -67,6 +72,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToStoreIntent() {
         val intent = Intent(this, StoreActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToChapterIntent() {
+        val intent = Intent(this, ChapterActivity::class.java)
         startActivity(intent)
     }
 
