@@ -14,13 +14,14 @@ class QuestionActivity : AppCompatActivity() {
 
     private lateinit var remainingTime: ProgressBar
     private var questionTime: Long = 10 *1000 //SECONDS * 1000
+    private lateinit var countDownTimer : CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
         remainingTime = findViewById(R.id.remainTime)
-        object : CountDownTimer(questionTime, 1000) {
+        countDownTimer = object : CountDownTimer(questionTime, 1000) {
             override fun onFinish() {
                 showToast()
                 goToMainIntent()
@@ -29,6 +30,12 @@ class QuestionActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {}
         }.start()
         setProgressAnimate(remainingTime)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        countDownTimer.cancel()
+        finish()
     }
 
     private fun setProgressAnimate(pb: ProgressBar) {

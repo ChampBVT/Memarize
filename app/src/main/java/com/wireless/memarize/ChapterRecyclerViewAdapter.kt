@@ -33,7 +33,7 @@ class ChapterRecyclerViewAdapter (val context: Context, private val chapterList:
         holder.title.text = chapter.title
         holder.img.setImageResource(chapter.src)
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, QuestionActivity::class.java)
             context.startActivity(intent)
             (context as Activity).finish()
         }

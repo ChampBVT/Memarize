@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 class LandingActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var countDownTimer : CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +109,12 @@ class LandingActivity : AppCompatActivity() {
     private fun goToLoginIntent() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        countDownTimer.cancel()
         finish()
     }
 
