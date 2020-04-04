@@ -10,6 +10,8 @@
     <string name="Memarize">Memarize</string>
     <string name="GetStarted">Let\'s get started!</string>
     <string name="SignOut">Sign Out</string>
+    <string name="Store">Store</string>
+    <string name="CurrentCoins">CurrentCoins</string>
     <string name="NameYourPet">Name your pet!</string>
     <string name="Petname">Pet Name...</string>
     <string name="petSelection">Pet Selection</string>

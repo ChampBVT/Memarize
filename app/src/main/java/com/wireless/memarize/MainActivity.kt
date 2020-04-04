@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textHeader: TextView
     private lateinit var petInfo: TextView
     private lateinit var imageView: ImageView
+    private lateinit var storeBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         textHeader = findViewById(R.id.welcomeHeader)
         petInfo = findViewById(R.id.petInfo)
         signOutBtn = findViewById(R.id.signOut)
+        storeBtn = findViewById(R.id.store)
 //        val sharedPref =
 //            this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
 //        Toast.makeText(
@@ -45,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         signOutBtn.setOnClickListener {
             auth.signOut()
             goToLoginIntent()
+        }
+        storeBtn.setOnClickListener {
+            goToStoreIntent()
         }
     }
 
@@ -58,6 +63,11 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun goToStoreIntent() {
+        val intent = Intent(this, StoreActivity::class.java)
+        startActivity(intent)
     }
 
     private fun getEncryptedSharePreferences() {

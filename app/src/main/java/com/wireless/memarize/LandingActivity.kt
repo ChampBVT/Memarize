@@ -63,6 +63,7 @@ class LandingActivity : AppCompatActivity() {
         ).show()
     }
 
+    @SuppressLint("ApplySharedPref")
     private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         val sharedPreferences = EncryptedSharedPreferences.create(
@@ -79,7 +80,7 @@ class LandingActivity : AppCompatActivity() {
             .putString("petName", petName)
             .putString("petType", petType)
             .putLong("coins", coins)
-            .apply()
+            .commit()
     }
 
     override fun onStart() {

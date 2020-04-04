@@ -1,5 +1,6 @@
 package com.wireless.memarize
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -106,6 +107,7 @@ class RegisterActivity2 : AppCompatActivity() {
         setEncryptedSharePreferences(name, email, uid, petName, petType, 0)
     }
 
+    @SuppressLint("ApplySharedPref")
     private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         val sharedPreferences = EncryptedSharedPreferences.create(
@@ -122,6 +124,6 @@ class RegisterActivity2 : AppCompatActivity() {
             .putString("petName", petName)
             .putString("petType", petType)
             .putLong("coins", coins)
-            .apply()
+            .commit()
     }
 }
