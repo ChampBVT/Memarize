@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.dataModel
 
 data class User(
     var name: String = "",

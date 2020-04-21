@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.pages.landing
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,6 +14,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.wireless.memarize.R
+import com.wireless.memarize.dataModel.User
+import com.wireless.memarize.pages.login.LoginActivity
+import com.wireless.memarize.pages.main.MainActivity
 
 class LandingActivity : AppCompatActivity() {
 

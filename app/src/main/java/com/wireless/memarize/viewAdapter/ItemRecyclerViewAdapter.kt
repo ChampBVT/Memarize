@@ -1,10 +1,12 @@
-package com.wireless.memarize
+package com.wireless.memarize.viewAdapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.wireless.memarize.dataModel.Item
+import com.wireless.memarize.R
 
 class ItemRecyclerViewAdapter (private val itemList: ArrayList<Item>) :
 
@@ -20,7 +22,7 @@ class ItemRecyclerViewAdapter (private val itemList: ArrayList<Item>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val items:Item = itemList[position]
+        val items: Item = itemList[position]
         holder.title.text = items.itemTitle
         holder.desc1.text = items.itemDesc1
         holder.desc2.text = items.itemDesc1

@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.pages.register
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,6 +16,9 @@ import androidx.security.crypto.MasterKeys
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.wireless.memarize.pages.main.MainActivity
+import com.wireless.memarize.R
+import com.wireless.memarize.dataModel.User
 import kotlinx.android.synthetic.main.activity_register_2.*
 
 
@@ -29,7 +32,8 @@ class RegisterActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_2)
-        val adapter = ArrayAdapter.createFromResource(this, R.array.pet_array, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(this,
+            R.array.pet_array, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerPet.adapter = adapter
         auth = FirebaseAuth.getInstance()
@@ -107,7 +111,6 @@ class RegisterActivity2 : AppCompatActivity() {
         setEncryptedSharePreferences(name, email, uid, petName, petType, 0)
     }
 
-    @SuppressLint("ApplySharedPref")
     private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         val sharedPreferences = EncryptedSharedPreferences.create(

@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.viewAdapter
 
 import android.app.Activity
 import android.content.Context
@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.wireless.memarize.R
+import com.wireless.memarize.dataModel.Chapter
+import com.wireless.memarize.pages.question.QuestionActivity
 
 
 class ChapterRecyclerViewAdapter (val context: Context, private val chapterList: ArrayList<Chapter>) :
@@ -34,6 +37,9 @@ class ChapterRecyclerViewAdapter (val context: Context, private val chapterList:
         holder.img.setImageResource(chapter.src)
         holder.itemView.setOnClickListener {
             val intent = Intent(context, QuestionActivity::class.java)
+            val words: HashMap<*, *> = chapter.words as HashMap<*, *>
+            intent.putExtra("words", words);
+            intent.putExtra("chapterTitle", chapter.title);
             context.startActivity(intent)
             (context as Activity).finish()
         }
@@ -44,5 +50,6 @@ class ChapterRecyclerViewAdapter (val context: Context, private val chapterList:
         var wordsL:TextView = item.findViewById(R.id.wordsLearnt)
         var img:ImageView = item.findViewById(R.id.chapterImg)
     }
+
 }
 
