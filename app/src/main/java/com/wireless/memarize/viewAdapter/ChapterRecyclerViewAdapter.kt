@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.Chapter
-import com.wireless.memarize.pages.question.QuestionActivity
+import com.wireless.memarize.pages.play.QuestionActivity
 
 
 class ChapterRecyclerViewAdapter (val context: Context, private val chapterList: ArrayList<Chapter>) :

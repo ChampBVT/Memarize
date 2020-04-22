@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/word_title"
+        android:text="Test"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/word_description"
+        android:text="Index = 0"
+        android:textSize="16sp"
+        android:textColor="#aeaeae"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+
+    />
+    <View
+        style="@style/Divider"
+        android:layout_marginTop="5dp"
+    />
+
+</LinearLayout>

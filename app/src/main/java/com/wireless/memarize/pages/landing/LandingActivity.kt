@@ -49,7 +49,7 @@ class LandingActivity : AppCompatActivity() {
                         petType = user.petType
                         coins = user.coins
                         setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins)
-                        showToast(userName!!, email!!, uid)
+                        //showToast(userName!!, email!!, uid)
                     }
                 }
 
@@ -90,7 +90,7 @@ class LandingActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        object : CountDownTimer(3000, 1000) {
+        object : CountDownTimer(2000, 1000) {
             override fun onFinish() {
                 val user = auth.currentUser;
                 if (user == null) {

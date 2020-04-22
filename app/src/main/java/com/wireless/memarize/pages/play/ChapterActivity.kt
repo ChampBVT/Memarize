@@ -1,4 +1,4 @@
-package com.wireless.memarize.pages.chapter
+package com.wireless.memarize.pages.play
 
 import android.content.Context
 import android.os.Bundle

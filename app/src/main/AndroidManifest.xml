@@ -24,8 +24,9 @@
         <activity android:name=".pages.register.RegisterActivity2" />
         <activity android:name=".pages.login.LoginActivity" />
         <activity android:name=".pages.store.StoreActivity" />
-        <activity android:name=".pages.chapter.ChapterActivity" />
-        <activity android:name=".pages.question.QuestionActivity" />
+        <activity android:name=".pages.play.ChapterActivity" />
+        <activity android:name=".pages.play.QuestionActivity" />
+        <activity android:name=".pages.play.SumScoreActivity" />
     </application>
 
 </manifest>

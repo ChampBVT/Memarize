@@ -1,11 +1,8 @@
-package com.wireless.memarize.pages.question;
+package com.wireless.memarize.pages.play;
 
 import android.animation.ObjectAnimator
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.animation.LinearInterpolator
 import android.widget.Button
@@ -15,10 +12,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.wireless.memarize.R
-import com.wireless.memarize.pages.main.MainActivity
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.Semaphore
 import kotlin.collections.HashMap
 
 
@@ -32,9 +30,9 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var vocab: TextView
     private lateinit var words: HashMap<*, *>
     private lateinit var wordsPool: HashMap<*, *>
+    private var wrongs: ArrayList<String> = arrayListOf()
     private var choices: ArrayList<Button> = arrayListOf()
     private var score : Int = 0
-
     private lateinit var job : Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,26 +72,30 @@ class QuestionActivity : AppCompatActivity() {
                 delay(questionTime)
             }
         }
-        if(words.isEmpty())
+        if(words.isEmpty()) {
             Toast.makeText(
                 this, "No more question", Toast.LENGTH_SHORT
             ).show();
+            goToSumScore()
+        }
     }
 
     private fun getNewQuestion (){
+        val a = Mutex()
+        val words1 = words.clone() as HashMap<*, *>
         val wordsChoicePool = wordsPool.clone() as HashMap<*, *>
         val choicesIdxPool = arrayListOf(0,1,2,3)
-        val i = Random().nextInt(words.size)
+        val i = Random().nextInt(words1.size)
         val wordKeySet = ArrayList<Any>()
-        wordKeySet.addAll(words.keys)
-        Log.e("get correct words key", wordKeySet[i] as String)
-        Log.e("get correct words value", words[wordKeySet[i]] as String)
+        wordKeySet.addAll(words1.keys)
         val j = Random().nextInt(4)
+        val text = words1[wordKeySet[i]] as CharSequence?
         this.runOnUiThread {
             vocab.text = wordKeySet[i] as CharSequence?
+            choices[j].text = text
         }
-        choices[j].text = words[wordKeySet[i]] as CharSequence?
         choices[j].setOnClickListener {
+            //Thread.sleep(1500)
             job.cancel()
             this.runOnUiThread {
                 remainingTime = findViewById(R.id.remainTime)
@@ -105,13 +107,16 @@ class QuestionActivity : AppCompatActivity() {
         choicesIdxPool.remove(j)
         wordsChoicePool.remove(wordKeySet[i])
         for(index in choicesIdxPool){
+            val wordsChoicePoolKeySet = ArrayList<Any>(wordsChoicePool.keys)
             val k = Random().nextInt(wordsChoicePool.size)
-            val wordsChoicePoolKeySet = ArrayList<Any>()
-            wordsChoicePoolKeySet.addAll(wordsChoicePool.keys)
-            choices[index].text = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
-            Log.e("get wrong words key", wordsChoicePoolKeySet[k] as String)
-            Log.e("get wrong words value", wordsChoicePool.toString())
+            val text = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
+            this.runOnUiThread {
+                choices[index].text = text
+            }
             choices[index].setOnClickListener {
+                Log.e("wrong word", wordKeySet[i].toString())
+                wrongs.add(wordKeySet[i] as String)
+                //Thread.sleep(1500)
                 job.cancel()
                 startNewQuestion()
             }
@@ -143,9 +148,11 @@ class QuestionActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun goToMainIntent() {
-        val intent = Intent(this, MainActivity::class.java)
+    private fun goToSumScore() {
+        val intent = Intent(this, SumScoreActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+        Log.e("get words", "$wrongs")
+        intent.putStringArrayListExtra("wrongs", wrongs)
         startActivity(intent)
         finish()
     }

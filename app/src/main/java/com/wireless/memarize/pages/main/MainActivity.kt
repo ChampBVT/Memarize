@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
-import com.wireless.memarize.pages.chapter.ChapterActivity
+import com.wireless.memarize.pages.play.ChapterActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.pages.login.LoginActivity
 import com.wireless.memarize.pages.store.StoreActivity
