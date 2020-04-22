@@ -22,4 +22,7 @@
     <string name="landingText"><![CDATA[An interactive English learning & pet system]]></string>
     <string name="name_key">name</string>
     <string name="WhereToStart">Where should we start?</string>
+    <string name="IncorrectWords">Incorrect Words</string>
+    <string name="Continue">Continue</string>
+    <string name="complete">Completed!</string>
 </resources>

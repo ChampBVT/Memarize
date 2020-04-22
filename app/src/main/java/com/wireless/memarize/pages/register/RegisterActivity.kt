@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.pages.register
 
 import android.content.Intent
 import android.content.IntentFilter
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.wireless.memarize.R
 
 
 class RegisterActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.wireless.memarize
+package com.wireless.memarize.pages.landing
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,6 +14,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.wireless.memarize.R
+import com.wireless.memarize.dataModel.User
+import com.wireless.memarize.pages.login.LoginActivity
+import com.wireless.memarize.pages.main.MainActivity
 
 class LandingActivity : AppCompatActivity() {
 
@@ -45,7 +49,7 @@ class LandingActivity : AppCompatActivity() {
                         petType = user.petType
                         coins = user.coins
                         setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins)
-                        showToast(userName!!, email!!, uid)
+                        //showToast(userName!!, email!!, uid)
                     }
                 }
 
@@ -86,7 +90,7 @@ class LandingActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        object : CountDownTimer(3000, 1000) {
+        object : CountDownTimer(2000, 1000) {
             override fun onFinish() {
                 val user = auth.currentUser;
                 if (user == null) {

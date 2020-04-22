@@ -13,19 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".MainActivity" android:launchMode="singleTop"/>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LandingActivity">
+        <activity android:name=".pages.main.MainActivity" android:launchMode="singleTop"/>
+        <activity android:name=".pages.register.RegisterActivity" />
+        <activity android:name=".pages.landing.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity2" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".StoreActivity" />
-        <activity android:name=".ChapterActivity" />
-        <activity android:name=".QuestionActivity" />
+        <activity android:name=".pages.register.RegisterActivity2" />
+        <activity android:name=".pages.login.LoginActivity" />
+        <activity android:name=".pages.store.StoreActivity" />
+        <activity android:name=".pages.play.ChapterActivity" />
+        <activity android:name=".pages.play.QuestionActivity" />
+        <activity android:name=".pages.play.SumScoreActivity" />
     </application>
 
 </manifest>
