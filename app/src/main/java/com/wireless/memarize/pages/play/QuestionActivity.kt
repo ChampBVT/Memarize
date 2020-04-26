@@ -109,9 +109,9 @@ class QuestionActivity : AppCompatActivity() {
         for(index in choicesIdxPool){
             val wordsChoicePoolKeySet = ArrayList<Any>(wordsChoicePool.keys)
             val k = Random().nextInt(wordsChoicePool.size)
-            val text = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
+            val textChoice = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
             this.runOnUiThread {
-                choices[index].text = text
+                choices[index].text = textChoice
             }
             choices[index].setOnClickListener {
                 Log.e("wrong word", wordKeySet[i].toString())
