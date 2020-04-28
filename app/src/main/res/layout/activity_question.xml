@@ -42,7 +42,7 @@
     <View
         android:id="@+id/barOverVocab1"
         style="@style/Divider"
-        android:layout_width="292dp"
+        android:layout_width="350dp"
         android:layout_marginTop="254dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -67,7 +67,7 @@
     <View
         android:id="@+id/barOverVocab2"
         style="@style/Divider"
-        android:layout_width="292dp"
+        android:layout_width="350dp"
         android:layout_marginTop="324dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -77,7 +77,7 @@
 
     <Button
         android:id="@+id/choice1"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="353dp"
         android:background="@drawable/choice_button"
@@ -91,7 +91,7 @@
 
     <Button
         android:id="@+id/choice2"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="413dp"
         android:background="@drawable/choice_button"
@@ -105,7 +105,7 @@
 
     <Button
         android:id="@+id/choice3"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="471dp"
         android:background="@drawable/choice_button"
@@ -119,7 +119,7 @@
 
     <Button
         android:id="@+id/choice4"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="528dp"
         android:background="@drawable/choice_button"
@@ -154,6 +154,7 @@
         android:layout_marginTop="214dp"
         android:layout_marginEnd="298dp"
         android:text="Time"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
