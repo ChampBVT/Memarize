@@ -13,6 +13,7 @@
         android:layout_marginTop="104dp"
         android:layout_marginBottom="600dp"
         android:contentDescription="@string/WhereToStart"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/WhereToStart"
         android:textColor="@color/white"
         android:textSize="20sp"
