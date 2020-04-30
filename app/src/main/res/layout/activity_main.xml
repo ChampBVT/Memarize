@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context=".pages.main.MainActivity">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/gradient"
+                                                   tools:context=".pages.main.MainActivity">
 
 
     <TextView
@@ -13,103 +12,108 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="153dp"
+        android:layout_marginStart="154dp"
         android:layout_marginTop="51dp"
-        android:layout_marginEnd="154dp"
-        android:gravity="center"
-        android:text="Hi Sam!"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="639dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center" android:text="Hi Sam!"
+        android:textColor="@color/white" android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <View
         android:id="@+id/view3"
         style="@style/Divider"
         android:layout_width="292dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="496dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_marginStart="59dp" android:layout_marginTop="485dp"
+        android:layout_marginEnd="60dp" android:layout_marginBottom="246dp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <View
         android:id="@+id/view"
         style="@style/Divider"
         android:layout_width="292dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="204dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="59dp" android:layout_marginTop="204dp"
+        android:layout_marginEnd="60dp" android:layout_marginBottom="527dp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <View
         android:id="@+id/view2"
         style="@style/Divider"
         android:layout_width="0.5dp"
         android:layout_height="100dp"
-        android:layout_marginStart="205dp"
-        android:layout_marginTop="535dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_marginStart="205dp" android:layout_marginTop="505dp"
+        android:layout_marginEnd="206dp" android:layout_marginBottom="126dp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <Button
         android:id="@+id/signOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="564dp"
-        android:text="@string/SignOut"
-        android:textColor="@color/bright_text_dark_focused"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="295dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="28dp" android:layout_marginBottom="632dp"
+        android:text="@string/SignOut" android:textColor="@color/bright_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/petInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="182dp"
+        android:layout_marginStart="135dp"
         android:layout_marginTop="131dp"
-        android:layout_marginEnd="182dp"
-        android:gravity="center"
-        android:text="testpetname"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="134dp"
+        android:layout_marginBottom="566dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center" android:text="testpetname"
+        android:textColor="@color/white" android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/petStatus"
         android:layout_width="200dp"
         android:layout_height="199dp"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="245dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="245dp" android:layout_marginEnd="105dp"
+        android:layout_marginBottom="287dp" android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/store"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
-        android:layout_marginTop="516dp"
-        android:text="Store"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_width="87dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="515dp" android:layout_marginEnd="89dp"
+        android:layout_marginBottom="139dp" android:background="@drawable/storesvg"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <Button
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="255dp"
-        android:layout_marginTop="605dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="90dp"
-        android:text="Play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="505dp" android:layout_marginEnd="231dp"
+        android:layout_marginBottom="132dp" android:background="@drawable/play"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/CurrentCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="626dp"
+        android:layout_marginEnd="135dp" android:layout_marginBottom="78dp"
+        android:contentDescription="" android:drawableStart="@drawable/coin"
+        android:fontFamily="@font/roboto" android:text="@string/CurrentCoins"
+        android:textColor="#ffffff" android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
