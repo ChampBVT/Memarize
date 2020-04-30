@@ -25,4 +25,5 @@
     <string name="IncorrectWords">Incorrect Words</string>
     <string name="Continue">Continue</string>
     <string name="complete">Completed!</string>
+    <string name="language">EN/TH</string>
 </resources>
