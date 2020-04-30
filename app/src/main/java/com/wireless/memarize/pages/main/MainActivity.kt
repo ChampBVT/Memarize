@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
     private lateinit var storeBtn: Button
     private lateinit var playBtn: Button
+    private lateinit var coins: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         signOutBtn = findViewById(R.id.signOut)
         storeBtn = findViewById(R.id.store)
         playBtn = findViewById(R.id.play)
+        coins = findViewById(R.id.CurrentCoin)
 //        val sharedPref =
 //            this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
 //        Toast.makeText(
@@ -89,10 +91,12 @@ class MainActivity : AppCompatActivity() {
         )
         val userName = sharedPreferences.getString("userName", "default")
         val petName = sharedPreferences.getString("petName", "default")
+        val coin = sharedPreferences.getLong("coins", -1)
         val greeting = "Hi $userName!"
         val petSaid = "Your pet $petName is sleepy."
         textHeader.text = greeting
         petInfo.text = petSaid
+        coins.text = " $coin"
     }
 
     private fun showToast(userName: String, email: String, uid: String) {
