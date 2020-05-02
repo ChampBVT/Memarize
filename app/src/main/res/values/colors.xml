@@ -9,4 +9,7 @@
     <color name="confirm_blue">#1976D2</color>
     <color name="white">#ffffff</color>
     <color name="divider_grey">#b3b3b3</color>
+    <color name="green">#81D759</color>
+    <color name="black">#000000</color>
+
 </resources>

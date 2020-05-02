@@ -16,7 +16,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.Semaphore
 import kotlin.collections.HashMap
 
 
@@ -67,6 +66,7 @@ class QuestionActivity : AppCompatActivity() {
     private fun startNewQuestion(){
         job = GlobalScope.launch { // launch new coroutine in the scope of runBlocking
             while(words.isNotEmpty()){
+                delay(1000)
                 getNewQuestion()
                 runOnUiThread{setProgressAnimate(remainingTime)}
                 delay(questionTime)
@@ -89,19 +89,24 @@ class QuestionActivity : AppCompatActivity() {
         val wordKeySet = ArrayList<Any>()
         wordKeySet.addAll(words1.keys)
         val j = Random().nextInt(4)
-        val text = words1[wordKeySet[i]] as CharSequence?
+        val text = words1[wordKeySet[i]] as CharSequence
         this.runOnUiThread {
+            choices[j].setBackgroundResource(R.drawable.choice_button)
+            choices[j].setTextColor(resources.getColorStateList(R.color.white))
             vocab.text = wordKeySet[i] as CharSequence?
             choices[j].text = text
         }
         choices[j].setOnClickListener {
             //Thread.sleep(1500)
-            job.cancel()
+
             this.runOnUiThread {
+                choices[j].setBackgroundResource(R.drawable.true_choice_button)
+                choices[j].setTextColor(resources.getColorStateList(R.color.black))
                 remainingTime = findViewById(R.id.remainTime)
                 score+= remainingTime.progress
                 scoreText.text = "Score: $score"
             }
+            job.cancel()
             startNewQuestion()
         }
         choicesIdxPool.remove(j)
@@ -111,12 +116,16 @@ class QuestionActivity : AppCompatActivity() {
             val k = Random().nextInt(wordsChoicePool.size)
             val textChoice = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
             this.runOnUiThread {
+                choices[index].setBackgroundResource(R.drawable.choice_button)
+                choices[index].setTextColor(resources.getColorStateList(R.color.white))
                 choices[index].text = textChoice
             }
             choices[index].setOnClickListener {
+
+                choices[index].setBackgroundResource(R.drawable.false_choice_button)
                 Log.e("wrong word", wordKeySet[i].toString())
                 wrongs.add(wordKeySet[i] as String)
-                //Thread.sleep(1500)
+
                 job.cancel()
                 startNewQuestion()
             }
