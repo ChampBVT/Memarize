@@ -29,7 +29,7 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var vocab: TextView
     private lateinit var words: HashMap<*, *>
     private lateinit var wordsPool: HashMap<*, *>
-    private var wrongs: ArrayList<String> = arrayListOf()
+    private var wrongs =  mutableMapOf<String, String>()
     private var choices: ArrayList<Button> = arrayListOf()
     private var score : Int = 0
     private lateinit var job : Job
@@ -60,13 +60,14 @@ class QuestionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        startNewQuestion()
+        startNewQuestion(true)
     }
 
-    private fun startNewQuestion(){
+    private fun startNewQuestion(firstQuestion : Boolean){
         job = GlobalScope.launch { // launch new coroutine in the scope of runBlocking
             while(words.isNotEmpty()){
-                delay(1000)
+                if(!firstQuestion)
+                    delay(1000)
                 getNewQuestion()
                 runOnUiThread{setProgressAnimate(remainingTime)}
                 delay(questionTime)
@@ -81,7 +82,6 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun getNewQuestion (){
-        val a = Mutex()
         val words1 = words.clone() as HashMap<*, *>
         val wordsChoicePool = wordsPool.clone() as HashMap<*, *>
         val choicesIdxPool = arrayListOf(0,1,2,3)
@@ -93,12 +93,10 @@ class QuestionActivity : AppCompatActivity() {
         this.runOnUiThread {
             choices[j].setBackgroundResource(R.drawable.choice_button)
             choices[j].setTextColor(resources.getColorStateList(R.color.white))
-            vocab.text = wordKeySet[i] as CharSequence?
-            choices[j].text = text
+            vocab.text = text//wordKeySet[i] as CharSequence?
+            choices[j].text = wordKeySet[i] as CharSequence?//text
         }
         choices[j].setOnClickListener {
-            //Thread.sleep(1500)
-
             this.runOnUiThread {
                 choices[j].setBackgroundResource(R.drawable.true_choice_button)
                 choices[j].setTextColor(resources.getColorStateList(R.color.black))
@@ -106,28 +104,31 @@ class QuestionActivity : AppCompatActivity() {
                 score+= remainingTime.progress
                 scoreText.text = "Score: $score"
             }
+            for (idx in choicesIdxPool)
+                choices[idx].setOnClickListener(null)
             job.cancel()
-            startNewQuestion()
+            startNewQuestion(false)
         }
         choicesIdxPool.remove(j)
         wordsChoicePool.remove(wordKeySet[i])
         for(index in choicesIdxPool){
             val wordsChoicePoolKeySet = ArrayList<Any>(wordsChoicePool.keys)
             val k = Random().nextInt(wordsChoicePool.size)
-            val textChoice = wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
+            val textChoice = wordsChoicePoolKeySet[k] as CharSequence?//wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
             this.runOnUiThread {
                 choices[index].setBackgroundResource(R.drawable.choice_button)
                 choices[index].setTextColor(resources.getColorStateList(R.color.white))
                 choices[index].text = textChoice
             }
             choices[index].setOnClickListener {
-
                 choices[index].setBackgroundResource(R.drawable.false_choice_button)
                 Log.e("wrong word", wordKeySet[i].toString())
-                wrongs.add(wordKeySet[i] as String)
-
+                wrongs.put(wordKeySet[i] as String, words1[wordKeySet[i]] as String)
+                for (idx in choicesIdxPool)
+                    choices[idx].setOnClickListener(null)
+                choices[j].setOnClickListener(null)
                 job.cancel()
-                startNewQuestion()
+                startNewQuestion(false)
             }
             wordsChoicePool.remove(wordsChoicePoolKeySet[k])
         }
@@ -136,7 +137,6 @@ class QuestionActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        //countDownTimer.cancel()
         job.cancel()
         finish()
     }
@@ -161,7 +161,7 @@ class QuestionActivity : AppCompatActivity() {
         val intent = Intent(this, SumScoreActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         Log.e("get words", "$wrongs")
-        intent.putStringArrayListExtra("wrongs", wrongs)
+        intent.putExtra("wrongs", wrongs as HashMap<String, String>)
         startActivity(intent)
         finish()
     }
