@@ -18,9 +18,13 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="89dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/bed" />
+                android:id="@+id/itemImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/bed"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:contentDescription="itemPic"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,41 +37,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp"
                 android:text="Title"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:textStyle="normal" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="4"
+            >
 
                 <TextView
                     android:id="@+id/itemDesc1"
-                    android:layout_width="140dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/time"
                     android:fontFamily="@font/roboto"
                     android:paddingStart="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_weight="2"
+                    android:drawablePadding="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_vertical"
                     android:text="Description"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/itemDesc2"
-                    android:layout_width="140dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/coin"
                     android:fontFamily="@font/roboto"
                     android:paddingStart="10dp"
-                    android:paddingBottom="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_weight="2"
+                    android:drawablePadding="10dp"
                     android:text="Description"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

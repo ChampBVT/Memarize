@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context=".pages.store.StoreActivity">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/gradient"
+                                                   tools:context=".pages.store.StoreActivity">
 
     <Button
         android:id="@+id/changeLanguage"
@@ -21,51 +21,47 @@
         android:text="@string/language"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <TextView
         android:id="@+id/Store"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_marginBottom="19dp"
         android:contentDescription="@string/Store"
         android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
         android:text="@string/Store"
         android:textColor="#ffffff"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/CurrentCoin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.093"/>
     <TextView
-        android:id="@+id/CurrentCoin"
+        android:id="@+id/CurrentCoinStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:contentDescription=""
-        android:drawableLeft="@drawable/coin"
-        android:fontFamily="@font/roboto"
-        android:text="@string/CurrentCoins"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Store" />
-
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginBottom="495dp"
+        android:drawableStart="@drawable/coin"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/roboto" android:text="@string/CurrentCoins"
+        android:textColor="#ffffff" android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="72dp"
@@ -80,7 +76,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="45dp"
-            tools:layout_editor_absoluteY="224dp" />
+            tools:layout_editor_absoluteY="224dp"/>
 
     </LinearLayout>
 

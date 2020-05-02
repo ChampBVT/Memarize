@@ -64,10 +64,11 @@ class ChapterActivity : AppCompatActivity() {
                     val chapters : HashMap<*,*> = dataSnapshot.value as HashMap<*, *>
                     val sortedChapters: TreeMap<*, *> = TreeMap(chapters)
                     for ((chapterName, words) in sortedChapters ) {
-                        chapterList.add(Chapter("$chapterName", 10, 30, getResourceByName("chapter1", "drawable"),
+                        chapterList.add(Chapter("$chapterName", 10, 30,
+                            getResourceByName("chapter"+chapterName.toString().split(" ")[1], "drawable"),
                             words as Map<String, String>
                         ))
-                       //Log.e(this.toString(), "$chapterList")
+                        //Log.e(this.toString(), "$chapterList")
                     }
                     val chapterRecyclerView: RecyclerView = findViewById(R.id.chapterRecyclerView)
                     chapterRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
