@@ -162,6 +162,7 @@ class QuestionActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         Log.e("get words", "$wrongs")
         intent.putExtra("wrongs", wrongs as HashMap<String, String>)
+        intent.putExtra("scores", score)
         startActivity(intent)
         finish()
     }

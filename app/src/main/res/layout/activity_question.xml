@@ -7,6 +7,27 @@
     android:background="@drawable/gradient"
     tools:context=".pages.play.QuestionActivity">
 
+    <Button
+        android:id="@+id/changeLanguage"
+        android:layout_width="51dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="86dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@null"
+        android:text="@string/language"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/Chapter"
         android:layout_width="wrap_content"
