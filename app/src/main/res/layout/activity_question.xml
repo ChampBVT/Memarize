@@ -73,19 +73,21 @@
 
     <TextView
         android:id="@+id/Vocabulary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="277dp"
+        android:layout_width="fill_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="256dp"
         android:fontFamily="@font/roboto"
-        android:text="Vocabulary"
+        android:gravity="center"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:text="to organize or arrange text, especially on a computer, according to a chosen pattern"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
+        tools:ignore="MissingConstraints"/>
     <View
         android:id="@+id/barOverVocab2"
         style="@style/Divider"

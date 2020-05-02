@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wireless.memarize.dataModel.Item
 import com.wireless.memarize.R
+import com.wireless.memarize.dataModel.Incorrect
 
-class IncorrectWordsRecyclerViewAdapter (private val itemList: ArrayList<String>) :
+class IncorrectWordsRecyclerViewAdapter (private val itemList: ArrayList<Incorrect>) :
 
     RecyclerView.Adapter<IncorrectWordsRecyclerViewAdapter.ViewHolder>(){
 
@@ -23,8 +24,9 @@ class IncorrectWordsRecyclerViewAdapter (private val itemList: ArrayList<String>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title.text = itemList[position]
-        holder.desc.text = "${itemList[position]} loyal and willing to give your time and energy to something that you believe in"
+        val incorrect : Incorrect = itemList[position]
+        holder.title.text = incorrect.word
+        holder.desc.text = incorrect.desc
     }
 
     class ViewHolder(word: View) : RecyclerView.ViewHolder(word){
