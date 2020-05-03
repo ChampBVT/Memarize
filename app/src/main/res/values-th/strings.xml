@@ -60,8 +60,14 @@
     <string name="water">ซื้อนํ้าให้ เจ้า</string>
     <string name="toy">ซื้อของเล่นให้ เจ้า</string>
     <string name="bed">ซื้อเตียงให้ เจ้า</string>
-    <string name="vaccine">ฉีดยา เข้า</string>
+    <string name="vaccine">ฉีดยา เจ้า</string>
     <string name="medkit">รักษา เจ้า</string>
     <string name="Total">"Total :"</string>
     <string name="word">"คำ"</string>
+    <string name="warning">คำเตือน : เกมจะถูกรีเซต</string>
+    <string name="successful">ล็อคอินสำเร็จ</string>
+    <string name="failed">ล็อคอินล้มเหลว</string>
+    <string name="register">ลงทะเบียนสำเร็จ</string>
+    <string name="fill">กรุณาใส่ข้อมูลให้ครบถ้วน</string>
+    <string name="minlength">รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร</string>
 </resources>

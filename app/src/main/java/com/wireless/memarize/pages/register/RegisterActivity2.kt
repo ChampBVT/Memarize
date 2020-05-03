@@ -15,6 +15,7 @@ import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.User
 import com.wireless.memarize.utils.*
+import org.w3c.dom.Text
 
 
 class RegisterActivity2 : AppCompatActivity() {
@@ -50,7 +51,8 @@ class RegisterActivity2 : AppCompatActivity() {
         backButton.setOnClickListener{
             onBackPressed();
         }
-
+        petType = spinnerPet.selectedItem.toString()
+        spinnerPet.setSelection(0,false)
         spinnerPet.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -58,7 +60,6 @@ class RegisterActivity2 : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                petType = parent.getItemAtPosition(0) as String
             }
         }
     }
@@ -78,7 +79,10 @@ class RegisterActivity2 : AppCompatActivity() {
         }
         createBtn.setOnClickListener {
             if (email != null && decodedPassword != null && name != null) {
-                emailRegister(email, decodedPassword, name, petName.text.toString(), petType)
+                if(TextUtils.isEmpty(petName.text))
+                    Toast.makeText(this, getString(R.string.fill), Toast.LENGTH_SHORT).show()
+                else
+                    emailRegister(email, decodedPassword, name, petName.text.toString(), petType)
             }
         }
     }
@@ -86,7 +90,7 @@ class RegisterActivity2 : AppCompatActivity() {
     private fun emailRegister(emailText:String, passwordText:String, nameText:String, petNameText:String, petTypeText:String){
         createBtn.isEnabled = false
         if(TextUtils.isEmpty(emailText)|| TextUtils.isEmpty(passwordText)){
-            Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             createBtn.isEnabled = true
         } else {
             auth.createUserWithEmailAndPassword(emailText, passwordText)
@@ -95,8 +99,8 @@ class RegisterActivity2 : AppCompatActivity() {
                         createUser(nameText, emailText, petNameText, petTypeText)
                         Toast.makeText(
                             this,
-                            "Successfully Registered",
-                            Toast.LENGTH_LONG
+                            getString(R.string.register),
+                            Toast.LENGTH_SHORT
                         ).show()
                         val intent = Intent(this, MainActivity::class.java)
                         val closeLoginActivity = Intent("Close_Login_Activity")
@@ -106,7 +110,6 @@ class RegisterActivity2 : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        Log.d("test", "createUserWithEmail:failure", task.exception)
                         Toast.makeText(
                             this, "Failed: " + (task.exception?.message
                                 ?: "No error message"), Toast.LENGTH_SHORT
@@ -123,11 +126,7 @@ class RegisterActivity2 : AppCompatActivity() {
         val uid = auth.currentUser?.uid.toString()
         databaseRef.child("users").child(uid).setValue(user)
             .addOnCompleteListener(this, OnCompleteListener { task ->
-                Toast.makeText(
-                    this, "Failed: " + (task.exception?.message
-                        ?: "No error message"), Toast.LENGTH_SHORT
-                ).show();
+                setEncryptedSharePreferences(name, email, uid, petName, petType, 0, this)
             });
-        setEncryptedSharePreferences(name, email, uid, petName, petType, 0, this)
     }
 }

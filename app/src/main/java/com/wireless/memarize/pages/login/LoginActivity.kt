@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
             val email: String = emailEt.text.toString()
             val password: String = passwordEt.text.toString()
             if(TextUtils.isEmpty(email)||TextUtils.isEmpty(password)){
-                Toast.makeText(this@LoginActivity, "Please fill in all the fields", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LoginActivity, getString(R.string.fill), Toast.LENGTH_SHORT).show()
                 loginBtn.isEnabled = true
             }else{
                 auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, OnCompleteListener { task ->
@@ -67,13 +67,10 @@ class LoginActivity : AppCompatActivity() {
                         val user = auth.currentUser;
                         if (user != null) {
                             getUserInfo(user.uid)
-                            Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
+                            Toast.makeText(this, getString(R.string.successful), Toast.LENGTH_SHORT).show()
                         }
                     }else{
-                        Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.failed), Toast.LENGTH_SHORT).show()
                         loginBtn.isEnabled = true
                     }
                 })
@@ -118,6 +115,9 @@ class LoginActivity : AppCompatActivity() {
                         petType = user.petType
                         coins = user.coins
                         setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins, this@LoginActivity)
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
 

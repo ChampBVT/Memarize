@@ -63,4 +63,10 @@
     <string name="medkit">healed</string>
     <string name="Total">"Total :"</string>
     <string name="word">"words"</string>
+    <string name="warning">Warning : The game will be reset</string>
+    <string name="successful">Login Successfully</string>
+    <string name="register">Register Successfully</string>
+    <string name="failed">Login Failed</string>
+    <string name="fill">Please fill in all the fields</string>
+    <string name="minlength">Password length must be more than 6 characters</string>
 </resources>

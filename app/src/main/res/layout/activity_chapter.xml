@@ -10,24 +10,29 @@
         android:id="@+id/back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="65dp" android:layout_marginEnd="346dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp" android:layout_marginEnd="346dp"
         android:layout_marginBottom="614dp" android:background="@drawable/back"
         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:visibility="invisible"
         android:id="@+id/changeLanguage"
         android:layout_width="51dp"
         android:layout_height="24dp"
-        android:layout_marginStart="340dp"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="20dp" android:layout_marginBottom="630dp" android:background="#00FFFFFF"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="637dp"
+        android:background="#00FFFFFF"
         android:fontFamily="@font/prompt_bold"
-        android:stateListAnimator="@null" android:text="@string/language"
-        android:textColor="#FFFFFF" android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        android:stateListAnimator="@null"
+        android:text="@string/language"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView

@@ -2,7 +2,11 @@ package com.wireless.memarize.pages.play;
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.ProgressBar
@@ -10,11 +14,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.wireless.memarize.R
-import com.wireless.memarize.utils.*
+import com.wireless.memarize.utils.displayChangeLanguage
+import com.wireless.memarize.utils.displayChangeLanguageAlert
+import com.wireless.memarize.utils.loadLocate
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlinx.coroutines.*
-import kotlin.collections.HashMap
 
 
 class QuestionActivity : AppCompatActivity() {
@@ -26,6 +34,7 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var scoreText: TextView
     private lateinit var vocab: TextView
     private lateinit var words: HashMap<*, *>
+    private lateinit var wordsRef: HashMap<*, *>
     private lateinit var wordsPool: HashMap<*, *>
     private var wrongs =  mutableMapOf<String, String>()
     private var choices: ArrayList<Button> = arrayListOf()
@@ -52,27 +61,38 @@ class QuestionActivity : AppCompatActivity() {
         chapterTitle = findViewById(R.id.Chapter)
         changeLanguageBtn = findViewById(R.id.changeLanguage)
 
-        words = intent.getSerializableExtra("words") as HashMap<*, *>
+        wordsRef = intent.getSerializableExtra("words") as HashMap<*, *>
+        words = wordsRef.clone() as HashMap<*, *>
         val title = intent.getStringExtra("chapterTitle")
-
         wordsPool = words.clone() as HashMap<*, *>
-        scoreText.text = "Score: $score"
-        scoreText.text = getString(R.string.score).plus("$score")
+        Log.e("size", wordsPool.size.toString())
+        scoreText.text = "${getString(R.string.score)}$score"
         chapterTitle.text = title
 
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage(this, this)
+            displayChangeLanguageAlert(this, this)
         }
 
         backButton.setOnClickListener{
             onBackPressed();
         }
+        startNewQuestion(true)
+//        val res: Resources = resources
+//        val dm: DisplayMetrics = res.displayMetrics
+//        val conf: Configuration = res.configuration
+//        res.updateConfiguration(conf, dm)
+//        onConfigurationChanged(conf)
     }
 
     override fun onStart() {
         super.onStart()
-        startNewQuestion(true)
     }
+
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        scoreText.text = "${getString(R.string.score)}$score"
+//        job.cancel()
+//        super.onConfigurationChanged(newConfig)
+//    }
 
     private fun startNewQuestion(firstQuestion : Boolean){
         job = GlobalScope.launch {
@@ -85,6 +105,7 @@ class QuestionActivity : AppCompatActivity() {
             }
         }
         if(words.isEmpty()) {
+            Log.e("ha","empty")
             goToSumScore()
         }
     }
@@ -152,7 +173,6 @@ class QuestionActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
-        finish()
     }
 
     private fun setProgressAnimate(pb: ProgressBar) {
