@@ -5,6 +5,5 @@ data class User(
     var email: String = "",
     var petName: String = "",
     var petType: String = "",
-    var coins: Long = 0,
-    var progress: String =""
+    var coins: Long = 0
 )

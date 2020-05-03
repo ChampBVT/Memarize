@@ -102,13 +102,6 @@ class RegisterActivity2 : AppCompatActivity() {
                             getString(R.string.register),
                             Toast.LENGTH_SHORT
                         ).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        val closeLoginActivity = Intent("Close_Login_Activity")
-                        val closeRegisterActivity = Intent("Close_Register_Activity")
-                        sendBroadcast(closeLoginActivity)
-                        sendBroadcast(closeRegisterActivity)
-                        startActivity(intent)
-                        finish()
                     } else {
                         Toast.makeText(
                             this, "Failed: " + (task.exception?.message
@@ -127,6 +120,13 @@ class RegisterActivity2 : AppCompatActivity() {
         databaseRef.child("users").child(uid).setValue(user)
             .addOnCompleteListener(this, OnCompleteListener { task ->
                 setEncryptedSharePreferences(name, email, uid, petName, petType, 0, this)
+                val intent = Intent(this, MainActivity::class.java)
+                val closeLoginActivity = Intent("Close_Login_Activity")
+                val closeRegisterActivity = Intent("Close_Register_Activity")
+                sendBroadcast(closeLoginActivity)
+                sendBroadcast(closeRegisterActivity)
+                startActivity(intent)
+                finish()
             });
     }
 }
