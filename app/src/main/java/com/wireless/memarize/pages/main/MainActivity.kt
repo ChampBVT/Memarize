@@ -1,7 +1,10 @@
 package com.wireless.memarize.pages.main
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -34,11 +37,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var storeBtn: Button
     private lateinit var playBtn: Button
     private lateinit var coins: TextView
+    private lateinit var changeLanguageBtn : Button
     private var context : Context = this
     private lateinit var job : Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadLocate() // Add (2)
         setContentView(R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
         textHeader = findViewById(R.id.welcomeHeader)
@@ -65,7 +70,56 @@ class MainActivity : AppCompatActivity() {
         playBtn.setOnClickListener {
             goToChapterIntent()
         }
+
+        // Add (3) Change language
+        changeLanguageBtn = findViewById(R.id.changeLanguage)
+
+        changeLanguageBtn.setOnClickListener {
+            displayChangeLanguage()
+        }
+        // ------ end (Add 3) -------
     }
+
+    // Add (4) Change language
+    private fun displayChangeLanguage() {
+        val listLang = arrayOf("EN", "TH")
+
+        val mBuilder = AlertDialog.Builder(this@MainActivity)
+        mBuilder.setTitle("@string/Select_Language")
+        mBuilder.setSingleChoiceItems(listLang, -1)
+        { dialog, which ->
+            if (which == 0) {
+                setLocate("en")
+                recreate()
+            } else {
+                setLocate("th")
+                recreate()
+            }
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder.create()
+        mDialog.show()
+    }
+
+    private fun setLocate(language: String?){
+        val locale = Locale(language)
+
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale= locale
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putString("myLanguage", language)
+        editor.apply()
+    }
+
+    private fun loadLocate() {
+        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = sharedPreferences.getString("myLanguage", "")
+        setLocate(language)
+    }
+    //------ end (Add 4) -------
 
     override fun onStart() {
         super.onStart()

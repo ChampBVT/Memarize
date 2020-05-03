@@ -1,7 +1,11 @@
 package com.wireless.memarize.pages.register
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Base64
@@ -20,6 +24,7 @@ import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.User
 import kotlinx.android.synthetic.main.activity_register_2.*
+import java.util.*
 
 
 class RegisterActivity2 : AppCompatActivity() {
@@ -28,9 +33,11 @@ class RegisterActivity2 : AppCompatActivity() {
     private lateinit var petName: EditText
     private lateinit var petType: String
     private lateinit var database: FirebaseDatabase
+    private lateinit var changeLanguageBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadLocate() // Add (2)
         setContentView(R.layout.activity_register_2)
         val adapter = ArrayAdapter.createFromResource(this,
             R.array.pet_array, android.R.layout.simple_spinner_item)
@@ -41,7 +48,56 @@ class RegisterActivity2 : AppCompatActivity() {
         createBtn = findViewById(R.id.create)
         petName = findViewById(R.id.petName)
         petType = spinnerPet.selectedItem.toString()
+
+        // Add (3) Change language
+        changeLanguageBtn = findViewById(R.id.changeLanguage)
+
+        changeLanguageBtn.setOnClickListener {
+            displayChangeLanguage()
+        }
+        // ------ end (Add 3) -------
     }
+
+    // Add (4) Change language
+    private fun displayChangeLanguage() {
+        val listLang = arrayOf("EN", "TH")
+
+        val mBuilder = AlertDialog.Builder(this@RegisterActivity2)
+        mBuilder.setTitle("@string/Select_Language")
+        mBuilder.setSingleChoiceItems(listLang, -1)
+        { dialog, which ->
+            if (which == 0) {
+                setLocate("en")
+                recreate()
+            } else {
+                setLocate("th")
+                recreate()
+            }
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder.create()
+        mDialog.show()
+    }
+
+    private fun setLocate(language: String?){
+        val locale = Locale(language)
+
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale= locale
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putString("myLanguage", language)
+        editor.apply()
+    }
+
+    private fun loadLocate() {
+        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
+        val language = sharedPreferences.getString("myLanguage", "")
+        setLocate(language)
+    }
+    //------ end (Add 4) -------
 
     override fun onStart() {
         super.onStart()
