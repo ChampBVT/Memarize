@@ -68,5 +68,7 @@
     <string name="register">Register Successfully</string>
     <string name="failed">Login Failed</string>
     <string name="fill">Please fill in all the fields</string>
+    <string name="full">Congratulations!\nYou got every word correct.</string>
     <string name="minlength">Password length must be more than 6 characters</string>
+    <string name="noans">You didn\'t answer any question</string>
 </resources>

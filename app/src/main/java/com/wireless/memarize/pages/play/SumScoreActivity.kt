@@ -29,6 +29,7 @@ class SumScoreActivity : AppCompatActivity() {
     private lateinit var correctedWord: TextView
     private lateinit var scoreText: TextView
     private lateinit var incorrectWordsHeader: TextView
+    private lateinit var chapterText: TextView
     private var score: Int = 0
     private lateinit var changeLanguageBtn : Button
 
@@ -44,6 +45,7 @@ class SumScoreActivity : AppCompatActivity() {
         changeLanguageBtn = findViewById(R.id.changeLanguage)
         newCoin = findViewById(R.id.NewCoin)
         continueBtn = findViewById(R.id.ContinueBtn)
+        chapterText = findViewById(R.id.Chapter)
         incorrectWordsHeader = findViewById(R.id.textView8)
 
         wrongs = intent.getSerializableExtra("wrongs") as HashMap<*, *>
@@ -57,11 +59,19 @@ class SumScoreActivity : AppCompatActivity() {
         if(wrongs.isNotEmpty()) {
             val adapter = IncorrectWordsRecyclerViewAdapter(wrongsList)
             incorrectWordRecyclerView.adapter = adapter
+        } else if(score != 0){
+            incorrectWordsHeader.text = getString(R.string.full)
         } else {
-            incorrectWordsHeader.text = "Congratulations! \nYou get every word corrected."
+            incorrectWordsHeader.text = getString(R.string.noans)
         }
+
         val percentage = "%.0f".format(((totalWords.toDouble()-wrongs.size.toDouble())/totalWords.toDouble())*100)
-        correctedWord.text = "${getString(R.string.correct)}${percentage}% (${totalWords-wrongs.size}/${totalWords})"
+        if(score != 0)
+            correctedWord.text = "${getString(R.string.correct)}${percentage}% (${totalWords-wrongs.size}/${totalWords})"
+        else
+            correctedWord.text = "${getString(R.string.correct)}${0}% (0/${totalWords})"
+
+        chapterText.text = intent.getStringExtra("chapterTitle")
         scoreText.text = "${getString(R.string.score)}$score"
         score /= 10
         newCoin.text = " +$score"
