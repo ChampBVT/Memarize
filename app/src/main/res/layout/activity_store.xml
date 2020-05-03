@@ -8,42 +8,44 @@
                                                    tools:context=".pages.store.StoreActivity">
 
     <Button
+        android:id="@+id/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp" android:layout_marginEnd="346dp"
+        android:layout_marginBottom="614dp" android:background="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
         android:id="@+id/changeLanguage"
         android:layout_width="51dp"
         android:layout_height="24dp"
-        android:layout_marginStart="340dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="86dp"
+        android:layout_marginStart="334dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="628dp"
         android:background="#00FFFFFF"
-        android:fontFamily="@font/prompt_bold"
-        android:stateListAnimator="@null"
-        android:text="@string/language"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
-
+        android:fontFamily="@font/prompt_bold" android:stateListAnimator="@null"
+        android:text="@string/language" android:textColor="#FFFFFF"
+        android:textSize="16sp" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/Store"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="568dp"
         android:contentDescription="@string/Store"
         android:fontFamily="@font/prompt_bold"
         android:gravity="center"
         android:text="@string/Store"
         android:textColor="#ffffff"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/CurrentCoin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.093"/>
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/CurrentCoinStore"
         android:layout_width="wrap_content"
@@ -69,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CurrentCoin">
+        app:layout_constraintTop_toBottomOf="@+id/CurrentCoinStore">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"

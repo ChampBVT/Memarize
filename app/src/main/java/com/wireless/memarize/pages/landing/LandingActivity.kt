@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wireless.memarize.R
+import com.wireless.memarize.utils.*
 import com.wireless.memarize.dataModel.User
 import com.wireless.memarize.pages.login.LoginActivity
 import com.wireless.memarize.pages.main.MainActivity
@@ -47,7 +46,7 @@ class LandingActivity : AppCompatActivity() {
                         petName = user.petName
                         petType = user.petType
                         coins = user.coins
-                        setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins)
+                        setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins, this@LandingActivity)
                     }
                 }
 
@@ -56,26 +55,6 @@ class LandingActivity : AppCompatActivity() {
                 }
 
             })
-    }
-
-    @SuppressLint("ApplySharedPref")
-    private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            "PreferencesFilename",
-            masterKeyAlias,
-            applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        sharedPreferences.edit()
-            .putString("userName", userName)
-            .putString("email", email)
-            .putString("uid", uid)
-            .putString("petName", petName)
-            .putString("petType", petType)
-            .putLong("coins", coins)
-            .commit()
     }
 
     override fun onStart() {

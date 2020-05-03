@@ -8,15 +8,12 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.User
-import kotlinx.android.synthetic.main.activity_register_2.*
 import com.wireless.memarize.utils.*
 
 
@@ -28,6 +25,7 @@ class RegisterActivity2 : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var changeLanguageBtn : Button
     private lateinit var spinnerPet: Spinner
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +41,26 @@ class RegisterActivity2 : AppCompatActivity() {
         createBtn = findViewById(R.id.create)
         petName = findViewById(R.id.petName)
         changeLanguageBtn = findViewById(R.id.changeLanguage)
+        backButton = findViewById(R.id.back)
 
         changeLanguageBtn.setOnClickListener {
             displayChangeLanguage(this, this)
         }
 
+        backButton.setOnClickListener{
+            onBackPressed();
+        }
+
         spinnerPet.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-               petType = parent.getItemAtPosition(position) as String
+                petType = parent.getItemAtPosition(position) as String
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
+                petType = parent.getItemAtPosition(0) as String
             }
         }
-    }
-
-    private fun toast(){
-        Toast.makeText(this, "selected" + "languages[position]", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {
@@ -96,7 +95,7 @@ class RegisterActivity2 : AppCompatActivity() {
                         createUser(nameText, emailText, petNameText, petTypeText)
                         Toast.makeText(
                             this,
-                            "Successfully Registered as $emailText\nPassword: $passwordText",
+                            "Successfully Registered",
                             Toast.LENGTH_LONG
                         ).show()
                         val intent = Intent(this, MainActivity::class.java)
@@ -124,31 +123,11 @@ class RegisterActivity2 : AppCompatActivity() {
         val uid = auth.currentUser?.uid.toString()
         databaseRef.child("users").child(uid).setValue(user)
             .addOnCompleteListener(this, OnCompleteListener { task ->
-            Toast.makeText(
-                this, "Failed: " + (task.exception?.message
-                    ?: "No error message"), Toast.LENGTH_SHORT
-            ).show();
-        });
-        setEncryptedSharePreferences(name, email, uid, petName, petType, 0)
-    }
-
-    private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            "PreferencesFilename",
-            masterKeyAlias,
-            applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        Log.e("petType", petType)
-        sharedPreferences.edit()
-            .putString("userName", userName)
-            .putString("email", email)
-            .putString("uid", uid)
-            .putString("petName", petName)
-            .putString("petType", petType)
-            .putLong("coins", coins)
-            .commit()
+                Toast.makeText(
+                    this, "Failed: " + (task.exception?.message
+                        ?: "No error message"), Toast.LENGTH_SHORT
+                ).show();
+            });
+        setEncryptedSharePreferences(name, email, uid, petName, petType, 0, this)
     }
 }
