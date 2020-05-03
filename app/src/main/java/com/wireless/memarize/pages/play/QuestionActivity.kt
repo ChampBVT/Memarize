@@ -32,6 +32,7 @@ class QuestionActivity : AppCompatActivity() {
     private var score : Int = 0
     private lateinit var job : Job
     private lateinit var changeLanguageBtn : Button
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class QuestionActivity : AppCompatActivity() {
         remainingTime = findViewById(R.id.remainTime)
         vocab = findViewById(R.id.Vocabulary)
         scoreText = findViewById(R.id.Score)
+        backButton = findViewById(R.id.back)
         choices = arrayListOf(
             findViewById(R.id.choice1),
             findViewById(R.id.choice2),
@@ -60,6 +62,10 @@ class QuestionActivity : AppCompatActivity() {
 
         changeLanguageBtn.setOnClickListener {
             displayChangeLanguage(this, this)
+        }
+
+        backButton.setOnClickListener{
+            onBackPressed();
         }
     }
 

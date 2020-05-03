@@ -21,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var nextBtn: Button
     private lateinit var name: EditText
     private lateinit var changeLanguageBtn : Button
+    private lateinit var backButton: Button
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(arg0: Context, intent: Intent) {
@@ -41,6 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         password = findViewById(R.id.password)
         name = findViewById(R.id.name)
         nextBtn = findViewById(R.id.next)
+        backButton = findViewById(R.id.back)
 
         nextBtn.setOnClickListener {
             nextBtn.isEnabled = false
@@ -58,6 +60,9 @@ class RegisterActivity : AppCompatActivity() {
         registerReceiver(broadcastReceiver, IntentFilter("Close_Register_Activity"))
         changeLanguageBtn.setOnClickListener {
             displayChangeLanguage(this, this)
+        }
+        backButton.setOnClickListener{
+            onBackPressed();
         }
     }
 

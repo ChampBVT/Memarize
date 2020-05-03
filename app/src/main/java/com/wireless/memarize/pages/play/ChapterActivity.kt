@@ -26,6 +26,7 @@ class ChapterActivity : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var changeLanguageBtn : Button
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +34,14 @@ class ChapterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chapter)
         database = FirebaseDatabase.getInstance()
         changeLanguageBtn = findViewById(R.id.changeLanguage)
+        backButton = findViewById(R.id.back)
 
         getChapters(this)
         changeLanguageBtn.setOnClickListener {
             displayChangeLanguage(this, this)
+        }
+        backButton.setOnClickListener{
+            onBackPressed();
         }
     }
     private fun getResourceByName(name: String, type: String): Int {

@@ -13,18 +13,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.pages.register.RegisterActivity
 import com.wireless.memarize.dataModel.User
+import com.wireless.memarize.pages.main.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -70,8 +68,10 @@ class LoginActivity : AppCompatActivity() {
                         if (user != null) {
                             getUserInfo(user.uid)
                             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
                         }
-
                     }else{
                         Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
                         loginBtn.isEnabled = true
@@ -99,29 +99,6 @@ class LoginActivity : AppCompatActivity() {
         unregisterReceiver(broadcastReceiver)
     }
 
-    @SuppressLint("ApplySharedPref")
-    private fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long) {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            "PreferencesFilename",
-            masterKeyAlias,
-            applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        sharedPreferences.edit()
-            .putString("userName", userName)
-            .putString("email", email)
-            .putString("uid", uid)
-            .putString("petName", petName)
-            .putString("petType", petType)
-            .putLong("coins", coins)
-            .commit()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
     private fun getUserInfo(uid: String) {
         val database = FirebaseDatabase.getInstance().reference
         var userName: String?
@@ -140,8 +117,7 @@ class LoginActivity : AppCompatActivity() {
                         petName = user.petName
                         petType = user.petType
                         coins = user.coins
-                        setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins)
-                        showToast(userName!!, email!!, uid)
+                        setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins, this@LoginActivity)
                     }
                 }
 
@@ -151,13 +127,4 @@ class LoginActivity : AppCompatActivity() {
 
             })
     }
-
-    private fun showToast(userName: String, email: String, uid: String) {
-        Toast.makeText(
-            this,
-            "Current status \nName: $userName\nEmail: $email\nuid: $uid",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
 }

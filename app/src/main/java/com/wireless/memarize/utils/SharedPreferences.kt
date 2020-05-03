@@ -58,3 +58,22 @@ fun getEncryptedSharePreferencesLong(string : String, context : Context): Long {
     )
     return sharedPreferences.getLong(string, -1)
 }
+
+@SuppressLint("ApplySharedPref")
+fun setEncryptedSharePreferences(userName: String, email: String, uid: String, petName: String, petType: String, coins: Long, context : Context) {
+    val sharedPreferences = EncryptedSharedPreferences.create(
+        "PreferencesFilename",
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+    sharedPreferences.edit()
+        .putString("userName", userName)
+        .putString("email", email)
+        .putString("uid", uid)
+        .putString("petName", petName)
+        .putString("petType", petType)
+        .putLong("coins", coins)
+        .commit()
+}

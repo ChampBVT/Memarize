@@ -16,6 +16,7 @@ class StoreActivity : AppCompatActivity() {
 
     private lateinit var changeLanguageBtn : Button
     private lateinit var currentCoin : TextView
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class StoreActivity : AppCompatActivity() {
         val itemRecyclerView: RecyclerView = findViewById(R.id.itemRecyclerView)
         itemRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val items = ArrayList<Item>()
+        backButton = findViewById(R.id.back)
         currentCoin =  findViewById(R.id.CurrentCoinStore)
         val petName = getEncryptedSharePreferencesString("petName", this)
         getCurrentCoin()
@@ -103,6 +105,10 @@ class StoreActivity : AppCompatActivity() {
 
         changeLanguageBtn.setOnClickListener {
             displayChangeLanguage(this, this)
+        }
+
+        backButton.setOnClickListener{
+            onBackPressed();
         }
     }
 
