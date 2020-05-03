@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Memarize</string>
+    <string name="Name">ชื่อ</string>
+    <string name="Email">อีเมล</string>
+    <string name="Password">รหัสผ่าน</string>
+    <string name="CreateAccountButton">สร้างบัญชีของคุณ</string>
+    <string name="Welcome">ยินดีต้อนรับ</string>
+    <string name="SignIn">เข้าสู่ระบบ</string>
+    <string name="WelcomeTo">ยินดีต้อนรับเข้าสู่</string>
+    <string name="Memarize">Memarize!</string>
+    <string name="GetStarted">มาเริ่มกันเถอะ !</string>
+    <string name="SignOut">ออกจากระบบ</string>
+    <string name="Store">ร้านค้า</string>
+    <string name="CurrentCoins">เหรียญของคุณ</string>
+    <string name="NameYourPet">ตั้งชื่อสัตว์เลี้ยงของคุณ</string>
+    <string name="Petname">ชื่อสัตว์เลี้ยง</string>
+    <string name="petSelection">เลือกสัตว์เลี้ยง</string>
+    <string name="Next">ถัดไป</string>
+    <string name="Hi">สวัสดี</string>
+    <string name="todo">TODO</string>
+    <string name="landingText"><![CDATA[An interactive English learning & pet system]]></string>
+    <string name="name_key">name</string>
+    <string name="WhereToStart">เริ่มบทไหนก่อนดี?</string>
+    <string name="IncorrectWords">คำที่ตอบผิด</string>
+    <string name="Continue">ดำเนินการต่อ</string>
+    <string name="complete">เสร็จสิ้น !</string>
+    <string name="language">EN/TH</string>
+</resources>

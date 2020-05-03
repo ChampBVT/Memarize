@@ -26,4 +26,5 @@
     <string name="Continue">Continue</string>
     <string name="complete">Completed!</string>
     <string name="language">EN/TH</string>
+    <string name="time">Time</string>
 </resources>
