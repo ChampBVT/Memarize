@@ -27,4 +27,17 @@
     <string name="complete">Completed!</string>
     <string name="language">EN/TH</string>
     <string name="time">Time</string>
+    <string name="Recover_your_pet_from_tiredness">Recover your pet from tiredness</string>
+    <string name="Recover_your_pet_from_sickness">Recover your pet from sickness</string>
+    <string name="Recover_your_pet_from_boredom">Recover your pet from boredom</string>
+    <string name="Recover_your_pet_from_thirstiness">Recover your pet from thirstiness</string>
+    <string name="Recover_your_pet_from_injury">Recover your pet from injury</string>
+    <string name="time_1mins">1 mins</string>
+    <string name="time_3mins">3 mins</string>
+    <string name="time_20mins">10 mins</string>
+    <string name="time_30mins">30 mins</string>
+    <string name="time_300mins">300 mins</string>
+    <string name="score">Score:</string>
+    <string name="Select_Language">Select Language</string>
+    <string name="correct">Correct:</string>
 </resources>

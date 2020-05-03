@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var nextBtn: Button
     private lateinit var name: EditText
-    private lateinit var changeLanguageBtn : Button
+    private lateinit var changeLanguageBtn : Button   // Add variable
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(arg0: Context, intent: Intent) {
@@ -60,7 +60,7 @@ class RegisterActivity : AppCompatActivity() {
 
         registerReceiver(broadcastReceiver, IntentFilter("Close_Register_Activity"))
 
-        // Add (3) Change language (1)
+        // Add (3) Change language
         changeLanguageBtn = findViewById(R.id.changeLanguage)
 
         changeLanguageBtn.setOnClickListener {
@@ -74,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
         val listLang = arrayOf("EN", "TH")
 
         val mBuilder = AlertDialog.Builder(this@RegisterActivity)
-        mBuilder.setTitle("Select Language")
+        mBuilder.setTitle("@string/Select_Language")
         mBuilder.setSingleChoiceItems(listLang, -1)
         { dialog, which ->
             if (which == 0) {

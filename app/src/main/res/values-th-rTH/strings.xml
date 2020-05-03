@@ -26,4 +26,18 @@
     <string name="WhereToStart">เริ่มบทไหนก่อนดี?</string>
     <string name="language">EN/TH</string>
     <string name="Name">ชื่อ</string>
+    <string name="time">เวลา</string>
+    <string name="time_1mins">1 นาที</string>
+    <string name="time_3mins">3 นาที</string>
+    <string name="time_20mins">10 นาที</string>
+    <string name="time_30mins">30 นาที</string>
+    <string name="time_300mins">300 นาที</string>
+    <string name="Recover_your_pet_from_tiredness">ฟื้นฟูสัตว์เลี้ยงของคุณจากความเหนื่อยล้า</string>
+    <string name="Recover_your_pet_from_sickness">ฟื้นฟูสัตว์เลี้ยงของคุณจากความเจ็บป่วย</string>
+    <string name="Recover_your_pet_from_boredom">ฟื้นฟูสัตว์เลี้ยงของคุณจากความเบื่อหน่าย</string>
+    <string name="Recover_your_pet_from_thirstiness">ฟื้นฟูสัตว์เลี้ยงของคุณจากความกระหายน้ำ</string>
+    <string name="Recover_your_pet_from_injury">ฟื้นฟูสัตว์เลี้ยงของคุณจากอาการบาดเจ็บ</string>
+    <string name="score">"คะแนน : "</string>
+    <string name="Select_Language">เลือกภาษา</string>
+    <string name="correct">"ถูกต้อง : "</string>
 </resources>
