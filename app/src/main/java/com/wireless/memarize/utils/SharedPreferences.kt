@@ -2,7 +2,6 @@ package com.wireless.memarize.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 
@@ -31,7 +30,6 @@ fun setEncryptedSharePreferencesLong(string : String, value : Long, context : Co
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
-    Log.e("setCoins", value.toString())
     sharedPreferences.edit()
         .putLong(string, value)
         .commit()

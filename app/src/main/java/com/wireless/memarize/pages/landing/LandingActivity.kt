@@ -47,6 +47,9 @@ class LandingActivity : AppCompatActivity() {
                         petType = user.petType
                         coins = user.coins
                         setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins, this@LandingActivity)
+                        val intent = Intent(this@LandingActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
 
@@ -66,18 +69,12 @@ class LandingActivity : AppCompatActivity() {
                     goToLoginIntent()
                 } else {
                     getUserInfo(user.uid)
-                    goToMainIntent()
                 }
             }
             override fun onTick(millisUntilFinished: Long) {}
         }.start()
     }
 
-    private fun goToMainIntent() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
     private fun goToLoginIntent() {
         val intent = Intent(this, LoginActivity::class.java)
