@@ -1,9 +1,5 @@
 package com.wireless.memarize.pages.store
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -14,7 +10,6 @@ import com.wireless.memarize.R
 import com.wireless.memarize.utils.*
 import com.wireless.memarize.dataModel.Item
 import com.wireless.memarize.viewAdapter.ItemRecyclerViewAdapter
-import java.util.*
 import kotlin.collections.ArrayList
 
 class StoreActivity : AppCompatActivity() {
@@ -24,9 +19,9 @@ class StoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_store)
-
+        changeLanguageBtn = findViewById(R.id.changeLanguage)
         val itemRecyclerView: RecyclerView = findViewById(R.id.itemRecyclerView)
         itemRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val items = ArrayList<Item>()
@@ -35,125 +30,80 @@ class StoreActivity : AppCompatActivity() {
         getCurrentCoin()
         items.add(
             Item(
-                "Recover your pet from tiredness",
+                getString(R.string.Recover_your_pet_from_tiredness),
                 "10 secs",
                 "120",
                 "tired",
                 R.drawable.bed,
-                "bought a bed for $petName"
+                "${getString(R.string.bed)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from sickness",
+                getString(R.string.Recover_your_pet_from_sickness),
                 "20 secs",
                 "150",
                 "sick",
                 R.drawable.vaccine,
-                "vaccinated $petName"
+                "${getString(R.string.vaccine)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from boredom",
+                getString(R.string.Recover_your_pet_from_boredom),
                 "30 secs",
                 "100",
                 "bored",
                 R.drawable.toy,
-                "bought a toy for $petName"
+                "${getString(R.string.toy)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from thirstiness",
+                getString(R.string.Recover_your_pet_from_thirstiness),
                 "15 secs",
                 "50",
                 "thirsty",
                 R.drawable.water,
-                "bought a water for $petName"
+                "${getString(R.string.water)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from injury",
+                getString(R.string.Recover_your_pet_from_injury),
                 "40 secs",
                 "300",
                 "injured",
                 R.drawable.injury,
-                "treated $petName's injury"
+                "${getString(R.string.medkit)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from hungriness",
+                getString(R.string.Recover_your_pet_from_hungriness),
                 "20 secs",
                 "50",
                 "hungry",
                 R.drawable.food,
-                "bought a food for $petName"
+                "${getString(R.string.food)} $petName"
             )
         )
         items.add(
             Item(
-                "Recover your pet from dirtiness",
+                getString(R.string.Recover_your_pet_from_dirtiness),
                 "60 secs",
                 "500",
                 "dirty",
                 R.drawable.bath,
-                "bathed $petName"
+                "${getString(R.string.bathe)} $petName"
             )
         )
-
         val adapter = ItemRecyclerViewAdapter(this, items) { getCurrentCoin() }
         itemRecyclerView.adapter = adapter
 
-        // Add (3) Change language
-        changeLanguageBtn = findViewById(R.id.changeLanguage)
-
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
-    }
-
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@StoreActivity)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
-            }
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
-    }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
     }
 
     private fun getCurrentCoin(){

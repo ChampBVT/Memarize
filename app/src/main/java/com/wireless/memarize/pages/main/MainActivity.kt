@@ -1,19 +1,13 @@
 package com.wireless.memarize.pages.main
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.firebase.auth.FirebaseAuth
 import com.wireless.memarize.pages.play.ChapterActivity
 import com.wireless.memarize.R
@@ -37,13 +31,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var storeBtn: Button
     private lateinit var playBtn: Button
     private lateinit var coins: TextView
-    private lateinit var changeLanguageBtn : Button
-    private var context : Context = this
-    private lateinit var job : Job
+    private lateinit var changeLanguageBtn: Button
+    private var context: Context = this
+    private lateinit var job: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
         textHeader = findViewById(R.id.welcomeHeader)
@@ -52,13 +46,7 @@ class MainActivity : AppCompatActivity() {
         storeBtn = findViewById(R.id.store)
         playBtn = findViewById(R.id.play)
         coins = findViewById(R.id.CurrentCoin)
-//        val sharedPref =
-//            this.getSharedPreferences(getString(R.string.name_key), Context.MODE_PRIVATE)
-//        Toast.makeText(
-//            this,
-//            "Current status \nName: ${sharedPref.getString("name", "kuy")}",
-//            Toast.LENGTH_LONG
-//        ).show()
+        changeLanguageBtn = findViewById(R.id.changeLanguage)
         imageView = findViewById(R.id.petStatus)
         signOutBtn.setOnClickListener {
             auth.signOut()
@@ -70,60 +58,17 @@ class MainActivity : AppCompatActivity() {
         playBtn.setOnClickListener {
             goToChapterIntent()
         }
-
-        // Add (3) Change language
-        changeLanguageBtn = findViewById(R.id.changeLanguage)
-
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
     }
-
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@MainActivity)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
-            }
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
-    }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
-    }
-    //------ end (Add 4) -------
 
     override fun onStart() {
         super.onStart()
-        getEncryptedSharePreferences()
+        val userName = getEncryptedSharePreferencesString("userName", this)
+        "${getString(R.string.Hi)} $userName"
+        textHeader.text = "${getString(R.string.Hi)} $userName"
+        coins.text = getEncryptedSharePreferencesLong("coins", this).toString()
         setPetStatus()
     }
 
@@ -132,35 +77,54 @@ class MainActivity : AppCompatActivity() {
         job.cancel()
     }
 
-    private fun setPetStatus(){
+    private fun setPetStatus() {
         job = GlobalScope.launch {
-                // launch new coroutine in the scope of runBlocking
-                val petStatusPool = arrayListOf("tired", "sick", "bored", "thirsty", "injured", "hungry", "dirty")
-                while(true){
-                    val currentTimestamp = System.currentTimeMillis()
-                    val savedTimeStamp = getEncryptedSharePreferencesLong("timestamp", context)
-                    val currentPetStatus = getEncryptedSharePreferencesString("status", context)
-                    Log.e("get status", getEncryptedSharePreferencesString("status", context))
-                    setPetImage(currentPetStatus)
-                    if(currentTimestamp > savedTimeStamp && !petStatusPool.contains(currentPetStatus)){
-                        val i = Random().nextInt(petStatusPool.size)
-                        setEncryptedSharePreferencesString("status", petStatusPool[i], context)
-                        Log.e("set status", petStatusPool[i])
-                    } else if(currentTimestamp < savedTimeStamp && petStatusPool.contains(currentPetStatus)){
-                        Log.e("set to normal", "normal")
-                    }
-                    delay(1000)
+            val petStatusPool = arrayListOf("tired", "sick", "bored", "thirsty", "injured", "hungry", "dirty")
+            val petName = getEncryptedSharePreferencesString("petName", context)
+            var currentTimestamp : Long
+            var savedTimeStamp : Long
+            var currentPetStatus : String
+            var i : Int
+            var petSaid : String
+            while (true) {
+                currentTimestamp = System.currentTimeMillis()
+                savedTimeStamp = getEncryptedSharePreferencesLong("timestamp", context)
+                currentPetStatus = getEncryptedSharePreferencesString("status", context)
+                setPetImage(currentPetStatus)
+                if (currentTimestamp > savedTimeStamp && !petStatusPool.contains(currentPetStatus)) {
+                    i = Random().nextInt(petStatusPool.size)
+                    setEncryptedSharePreferencesString("status", petStatusPool[i], context)
                 }
+                petSaid = "${getString(R.string.petStatus1)} $petName ${getString(R.string.petStatus2)}" +
+                        mapStatusToStringResource(getEncryptedSharePreferencesString("status", context))
+                petInfo.text = petSaid
+                delay(1000)
             }
+        }
+    }
+
+    private fun mapStatusToStringResource(status: String): String {
+        var stringStatus: String = "not found"
+        when (status) {
+            "normal" -> stringStatus = getString(R.string.normal)
+            "tired" -> stringStatus = getString(R.string.tired)
+            "dirty" -> stringStatus = getString(R.string.dirty)
+            "hungry" -> stringStatus = getString(R.string.hungry)
+            "sick" -> stringStatus = getString(R.string.sick)
+            "bored" -> stringStatus = getString(R.string.bored)
+            "injured" -> stringStatus = getString(R.string.injured)
+            "thirsty" -> stringStatus = getString(R.string.thirsty)
+        }
+        return stringStatus
     }
 
     private fun getResourceByName(status: String, type: String): Int {
         val petType = getEncryptedSharePreferencesString("petType", context).toLowerCase()
-        return resources.getIdentifier("$petType$status" , type, context.packageName)
+        return resources.getIdentifier("$petType$status", type, context.packageName)
     }
 
-    private fun setPetImage(status : String){
-        runOnUiThread{
+    private fun setPetImage(status: String) {
+        runOnUiThread {
             imageView.setImageResource(getResourceByName(status, "drawable"))
         }
     }
@@ -183,33 +147,4 @@ class MainActivity : AppCompatActivity() {
         job.cancel()
         startActivity(intent)
     }
-
-    private fun getEncryptedSharePreferences() {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            "PreferencesFilename",
-            masterKeyAlias,
-            applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        val userName = sharedPreferences.getString("userName", "default")
-        val petName = sharedPreferences.getString("petName", "default")
-        val coin = sharedPreferences.getLong("coins", -1)
-        val greeting = "Hi $userName!"
-        val petSaid = "Your pet $petName is sleepy."
-        textHeader.text = greeting
-        petInfo.text = petSaid
-        coins.text = " $coin"
-    }
-
-    private fun showToast(userName: String, email: String, uid: String) {
-        Toast.makeText(
-            this,
-            "Current status \nName: $userName\nEmail: $email\nuid: $uid",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
 }

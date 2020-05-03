@@ -29,10 +29,9 @@ class ChapterRecyclerViewAdapter (val context: Context, private val chapterList:
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chapter: Chapter = chapterList[position]
-        val wordsL = chapter.wordsLearnt
         val wordsT = chapter.wordsTotal
-        val learntText = "$wordsL/$wordsT Learned"
-        holder.wordsL.text = learntText
+        val totalWordsText = "${context.getString(R.string.Total)} $wordsT ${context.getString(R.string.word)}"
+        holder.wordsL.text = totalWordsText
         holder.title.text = chapter.title
         holder.img.setImageResource(chapter.src)
         holder.itemView.setOnClickListener {

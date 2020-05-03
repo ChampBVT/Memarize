@@ -16,7 +16,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="86dp"
         android:background="#00FFFFFF"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:stateListAnimator="@null"
         android:text="@string/language"
         android:textColor="#FFFFFF"
@@ -34,7 +34,7 @@
         android:layout_marginTop="110dp"
         android:layout_marginBottom="19dp"
         android:contentDescription="@string/Store"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:gravity="center"
         android:text="@string/Store"
         android:textColor="#ffffff"
@@ -54,7 +54,7 @@
         android:layout_marginBottom="495dp"
         android:drawableStart="@drawable/coin"
         android:drawablePadding="10dp"
-        android:fontFamily="@font/roboto" android:text="@string/CurrentCoins"
+        android:fontFamily="@font/prompt" android:text="@string/CurrentCoins"
         android:textColor="#ffffff" android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
@@ -73,7 +73,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"
-            android:layout_width="320dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="45dp"
             tools:layout_editor_absoluteY="224dp"/>
