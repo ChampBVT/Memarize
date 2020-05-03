@@ -14,10 +14,7 @@ import com.wireless.memarize.R
 import com.wireless.memarize.pages.login.LoginActivity
 import com.wireless.memarize.pages.store.StoreActivity
 import com.wireless.memarize.utils.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 
 
@@ -72,18 +69,8 @@ class MainActivity : AppCompatActivity() {
         setPetStatus()
     }
 
-    override fun onPause() {
-        super.onPause()
-        job.cancel()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        job.cancel()
-    }
-
-    override fun onStop() {
-        super.onStop()
         job.cancel()
     }
 
