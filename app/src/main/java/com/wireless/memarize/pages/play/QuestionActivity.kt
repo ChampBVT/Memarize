@@ -50,7 +50,7 @@ class QuestionActivity : AppCompatActivity() {
         vocab = findViewById(R.id.Vocabulary)
         scoreText = findViewById(R.id.Score)
         scoreText.text = "Score: $score"
-        scoreText.text = "@string/score".plus("$score")
+        scoreText.text = getString(R.string.score).plus("$score")
         choices = arrayListOf(
             findViewById(R.id.choice1),
             findViewById(R.id.choice2),
