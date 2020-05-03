@@ -72,8 +72,18 @@ class MainActivity : AppCompatActivity() {
         setPetStatus()
     }
 
+    override fun onPause() {
+        super.onPause()
+        job.cancel()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
+    }
+
+    override fun onStop() {
+        super.onStop()
         job.cancel()
     }
 
