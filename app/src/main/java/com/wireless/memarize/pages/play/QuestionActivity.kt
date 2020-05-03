@@ -28,7 +28,7 @@ import kotlin.collections.ArrayList
 class QuestionActivity : AppCompatActivity() {
 
     private lateinit var remainingTime: ProgressBar
-    private var questionTime: Long = 10 *1000 //SECONDS * 1000
+    private var questionTime: Long = 10 * 1000 //SECONDS * 1000
     private lateinit var database: FirebaseDatabase
     private lateinit var chapterTitle: TextView
     private lateinit var scoreText: TextView
@@ -36,12 +36,15 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var words: HashMap<*, *>
     private lateinit var wordsRef: HashMap<*, *>
     private lateinit var wordsPool: HashMap<*, *>
+    private lateinit var title: String
     private var wrongs =  mutableMapOf<String, String>()
     private var choices: ArrayList<Button> = arrayListOf()
     private var score : Int = 0
     private lateinit var job : Job
     private lateinit var changeLanguageBtn : Button
     private lateinit var backButton: Button
+    private var notAnswer : Boolean = false
+    private var j : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +66,8 @@ class QuestionActivity : AppCompatActivity() {
 
         wordsRef = intent.getSerializableExtra("words") as HashMap<*, *>
         words = wordsRef.clone() as HashMap<*, *>
-        val title = intent.getStringExtra("chapterTitle")
+        title = intent.getStringExtra("chapterTitle") as String
         wordsPool = words.clone() as HashMap<*, *>
-        Log.e("size", wordsPool.size.toString())
         scoreText.text = "${getString(R.string.score)}$score"
         chapterTitle.text = title
 
@@ -76,36 +78,30 @@ class QuestionActivity : AppCompatActivity() {
         backButton.setOnClickListener{
             onBackPressed();
         }
-        startNewQuestion(true)
-//        val res: Resources = resources
-//        val dm: DisplayMetrics = res.displayMetrics
-//        val conf: Configuration = res.configuration
-//        res.updateConfiguration(conf, dm)
-//        onConfigurationChanged(conf)
+
     }
 
     override fun onStart() {
         super.onStart()
+        startNewQuestion(true)
     }
-
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        scoreText.text = "${getString(R.string.score)}$score"
-//        job.cancel()
-//        super.onConfigurationChanged(newConfig)
-//    }
 
     private fun startNewQuestion(firstQuestion : Boolean){
         job = GlobalScope.launch {
             while(words.isNotEmpty()){
-                if(!firstQuestion)
+                if(!firstQuestion || notAnswer)
                     delay(1000)
+                notAnswer = true
                 getNewQuestion()
                 runOnUiThread{setProgressAnimate(remainingTime)}
                 delay(questionTime)
+                if(notAnswer){
+                    runOnUiThread{
+                        choices[j].setBackgroundResource(R.drawable.true_choice_button)
+                        choices[j].setTextColor(resources.getColorStateList(R.color.black))
+                    }
+                }
             }
-        }
-        if(words.isEmpty()) {
-            Log.e("ha","empty")
             goToSumScore()
         }
     }
@@ -117,7 +113,7 @@ class QuestionActivity : AppCompatActivity() {
         val i = Random().nextInt(words1.size)
         val wordKeySet = ArrayList<Any>()
         wordKeySet.addAll(words1.keys)
-        val j = Random().nextInt(4)
+        j = Random().nextInt(4)
         val text = words1[wordKeySet[i]] as CharSequence
         this.runOnUiThread {
             choices[j].setBackgroundResource(R.drawable.choice_button)
@@ -136,6 +132,7 @@ class QuestionActivity : AppCompatActivity() {
             for (idx in choicesIdxPool)
                 choices[idx].setOnClickListener(null)
             choices[j].setOnClickListener(null)
+            notAnswer = false
             job.cancel()
             startNewQuestion(false)
         }
@@ -155,7 +152,10 @@ class QuestionActivity : AppCompatActivity() {
                 wrongs[wordKeySet[i] as String] = words1[wordKeySet[i]] as String
                 for (idx in choicesIdxPool)
                     choices[idx].setOnClickListener(null)
+                choices[j].setBackgroundResource(R.drawable.true_choice_button)
+                choices[j].setTextColor(resources.getColorStateList(R.color.black))
                 choices[j].setOnClickListener(null)
+                notAnswer = false
                 job.cancel()
                 startNewQuestion(false)
             }
@@ -184,11 +184,12 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun goToSumScore() {
-        val intent = Intent(this, SumScoreActivity::class.java)
+        val intent = Intent(this@QuestionActivity, SumScoreActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         intent.putExtra("wrongs", wrongs as HashMap<String, String>)
         intent.putExtra("totalWords", wordsPool.size)
         intent.putExtra("scores", score)
+        intent.putExtra("chapterTitle", title)
         startActivity(intent)
         finish()
     }

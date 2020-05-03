@@ -23,6 +23,7 @@
         android:fontFamily="@font/prompt"
         android:text="Index = 0"
         android:textAlignment="center"
+        android:lineSpacingMultiplier="0.7"
         android:textColor="#aeaeae"
         android:textSize="16sp" />
     <View

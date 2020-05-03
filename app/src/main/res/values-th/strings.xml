@@ -69,5 +69,7 @@
     <string name="failed">ล็อคอินล้มเหลว</string>
     <string name="register">ลงทะเบียนสำเร็จ</string>
     <string name="fill">กรุณาใส่ข้อมูลให้ครบถ้วน</string>
+    <string name="full">ยินดีด้วย\nคุณตอบถูกทุกข้อ</string>
     <string name="minlength">รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร</string>
+    <string name="noans">คุณไม่ได้ตอบคำถามเลยซักข้อ</string>
 </resources>

@@ -28,18 +28,18 @@
         app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.0"/>
     <TextView
         android:id="@+id/Chapter"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="83dp"
-        android:layout_marginBottom="576dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginBottom="569dp"
         android:fontFamily="@font/prompt_bold"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="Chapter 1 : Starting Conversations"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="28sp" android:textStyle="bold" app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" tools:layout_editor_absoluteX="0dp"/>
+        android:textAlignment="center" android:textColor="#FFFFFF"
+        android:textSize="24sp" android:textStyle="bold" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/NewCoin"
@@ -97,6 +97,7 @@
         android:layout_marginBottom="389dp"
         android:fontFamily="@font/prompt"
         android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="0.8"
         android:text="@string/IncorrectWords"
         android:textColor="#FFFFFF"
         android:textSize="20sp" android:textStyle="normal|bold"
