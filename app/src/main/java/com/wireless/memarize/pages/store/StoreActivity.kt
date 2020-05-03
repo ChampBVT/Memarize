@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wireless.memarize.R
-import com.wireless.memarize.dataModel.Chapter
+import com.wireless.memarize.utils.*
 import com.wireless.memarize.dataModel.Item
-import com.wireless.memarize.utils.getEncryptedSharePreferencesLong
 import com.wireless.memarize.viewAdapter.ItemRecyclerViewAdapter
 
 class StoreActivity : AppCompatActivity() {
@@ -23,6 +22,7 @@ class StoreActivity : AppCompatActivity() {
         itemRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val items = ArrayList<Item>()
         currentCoin =  findViewById(R.id.CurrentCoinStore)
+        val petName = getEncryptedSharePreferencesString("petName", this)
         getCurrentCoin()
         items.add(
             Item(
@@ -30,7 +30,8 @@ class StoreActivity : AppCompatActivity() {
                 "10 secs",
                 "120",
                 "tired",
-                R.drawable.bed
+                R.drawable.bed,
+                "bought a bed for $petName"
             )
         )
         items.add(
@@ -39,7 +40,9 @@ class StoreActivity : AppCompatActivity() {
                 "20 secs",
                 "150",
                 "sick",
-                R.drawable.vaccine
+                R.drawable.vaccine,
+                "vaccinated $petName"
+
             )
         )
         items.add(
@@ -48,7 +51,8 @@ class StoreActivity : AppCompatActivity() {
                 "30 secs",
                 "100",
                 "bored",
-                R.drawable.toy
+                R.drawable.toy,
+                "bought a toy for $petName"
             )
         )
         items.add(
@@ -57,7 +61,8 @@ class StoreActivity : AppCompatActivity() {
                 "15 secs",
                 "50",
                 "thirsty",
-                R.drawable.water
+                R.drawable.water,
+                "bought a water for $petName"
             )
         )
         items.add(
@@ -66,7 +71,8 @@ class StoreActivity : AppCompatActivity() {
                 "40 secs",
                 "300",
                 "injured",
-                R.drawable.injury
+                R.drawable.injury,
+                "treated $petName's injury"
             )
         )
         items.add(
@@ -75,7 +81,8 @@ class StoreActivity : AppCompatActivity() {
                 "20 secs",
                 "50",
                 "hungry",
-                R.drawable.food
+                R.drawable.food,
+                "bought a food for $petName"
             )
         )
         items.add(
@@ -84,7 +91,8 @@ class StoreActivity : AppCompatActivity() {
                 "60 secs",
                 "500",
                 "dirty",
-                R.drawable.bath
+                R.drawable.bath,
+                "bathed $petName"
             )
         )
 

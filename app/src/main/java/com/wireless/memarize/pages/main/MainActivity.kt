@@ -1,7 +1,9 @@
 package com.wireless.memarize.pages.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +16,12 @@ import com.wireless.memarize.pages.play.ChapterActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.pages.login.LoginActivity
 import com.wireless.memarize.pages.store.StoreActivity
+import com.wireless.memarize.utils.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var storeBtn: Button
     private lateinit var playBtn: Button
     private lateinit var coins: TextView
+    private var context : Context = this
+    private lateinit var job : Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,22 +70,63 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         getEncryptedSharePreferences()
-        imageView.setImageResource(R.drawable.c1)
+        setPetStatus()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
+    private fun setPetStatus(){
+        job = GlobalScope.launch {
+                // launch new coroutine in the scope of runBlocking
+                val petStatusPool = arrayListOf("tired", "sick", "bored", "thirsty", "injured", "hungry", "dirty")
+                while(true){
+                    val currentTimestamp = System.currentTimeMillis()
+                    val savedTimeStamp = getEncryptedSharePreferencesLong("timestamp", context)
+                    val currentPetStatus = getEncryptedSharePreferencesString("status", context)
+                    Log.e("get status", getEncryptedSharePreferencesString("status", context))
+                    setPetImage(currentPetStatus)
+                    if(currentTimestamp > savedTimeStamp && !petStatusPool.contains(currentPetStatus)){
+                        val i = Random().nextInt(petStatusPool.size)
+                        setEncryptedSharePreferencesString("status", petStatusPool[i], context)
+                        Log.e("set status", petStatusPool[i])
+                    } else if(currentTimestamp < savedTimeStamp && petStatusPool.contains(currentPetStatus)){
+                        Log.e("set to normal", "normal")
+                    }
+                    delay(1000)
+                }
+            }
+    }
+
+    private fun getResourceByName(status: String, type: String): Int {
+        val petType = getEncryptedSharePreferencesString("petType", context).toLowerCase()
+        return resources.getIdentifier("$petType$status" , type, context.packageName)
+    }
+
+    private fun setPetImage(status : String){
+        runOnUiThread{
+            imageView.setImageResource(getResourceByName(status, "drawable"))
+        }
     }
 
     private fun goToLoginIntent() {
         val intent = Intent(this, LoginActivity::class.java)
+        job.cancel()
         startActivity(intent)
         finish()
     }
 
     private fun goToStoreIntent() {
         val intent = Intent(this, StoreActivity::class.java)
+        job.cancel()
         startActivity(intent)
     }
 
     private fun goToChapterIntent() {
         val intent = Intent(this, ChapterActivity::class.java)
+        job.cancel()
         startActivity(intent)
     }
 

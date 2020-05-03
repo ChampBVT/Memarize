@@ -106,6 +106,7 @@ class QuestionActivity : AppCompatActivity() {
             }
             for (idx in choicesIdxPool)
                 choices[idx].setOnClickListener(null)
+            choices[j].setOnClickListener(null)
             job.cancel()
             startNewQuestion(false)
         }
@@ -123,7 +124,7 @@ class QuestionActivity : AppCompatActivity() {
             choices[index].setOnClickListener {
                 choices[index].setBackgroundResource(R.drawable.false_choice_button)
                 Log.e("wrong word", wordKeySet[i].toString())
-                wrongs.put(wordKeySet[i] as String, words1[wordKeySet[i]] as String)
+                wrongs[wordKeySet[i] as String] = words1[wordKeySet[i]] as String
                 for (idx in choicesIdxPool)
                     choices[idx].setOnClickListener(null)
                 choices[j].setOnClickListener(null)
