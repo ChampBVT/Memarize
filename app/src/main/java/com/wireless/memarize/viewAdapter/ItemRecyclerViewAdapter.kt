@@ -1,6 +1,7 @@
 package com.wireless.memarize.viewAdapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.Chapter
 import com.wireless.memarize.dataModel.Item
-import com.wireless.memarize.utils.getEncryptedSharePreferencesLong
-import com.wireless.memarize.utils.getEncryptedSharePreferencesString
-import com.wireless.memarize.utils.setEncryptedSharePreferencesLong
-import com.wireless.memarize.utils.setRealtimeDatabaseValue
+import com.wireless.memarize.utils.*
 
 
 class ItemRecyclerViewAdapter(
@@ -45,11 +43,22 @@ class ItemRecyclerViewAdapter(
             if(currentCoins>=items.itemDesc2.toLong()){
                 currentCoins -= items.itemDesc2.toLong()
                 setEncryptedSharePreferencesLong("coins", currentCoins, context)
-                if(getEncryptedSharePreferencesString("status", context) == items.tag)
-                    setEncryptedSharePreferencesLong("timestamp",System.currentTimeMillis()+(items.itemDesc1.split(" ")[0].toLong()*1000), context)
+                if(getEncryptedSharePreferencesString("status", context) == items.tag) {
+                    setEncryptedSharePreferencesString("status", "normal", context)
+                    setEncryptedSharePreferencesLong(
+                        "timestamp",
+                        System.currentTimeMillis() + (items.itemDesc1.split(" ")[0].toLong() * 1000),
+                        context
+                    )
+                }
                 setEncryptedSharePreferencesLong("", currentCoins, context)
                 setRealtimeDatabaseValue("coins", currentCoins, context)
                 setCurrentCoin()
+                Toast.makeText(
+                    context,
+                    "Successfully ${items.action}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }else{
                 Toast.makeText(
                     context,

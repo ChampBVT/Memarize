@@ -46,7 +46,7 @@ class SumScoreActivity : AppCompatActivity() {
             val adapter = IncorrectWordsRecyclerViewAdapter(wrongsList)
             incorrectWordRecyclerView.adapter = adapter
         } else {
-            incorrectWordsHeader.text = "Congratulations! \n\n\nYou get every word corrected."
+            incorrectWordsHeader.text = "Congratulations! \nYou get every word corrected."
         }
         score /= 10
         newCoin.text = " +$score"
