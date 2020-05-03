@@ -26,36 +26,43 @@ class SumScoreActivity : AppCompatActivity() {
     private lateinit var continueBtn: Button
     private lateinit var wrongs: HashMap<*, *>
     private lateinit var newCoin: TextView
+    private lateinit var correctedWord: TextView
+    private lateinit var scoreText: TextView
     private lateinit var incorrectWordsHeader: TextView
     private var score: Int = 0
     private lateinit var changeLanguageBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_sum_score)
-
         val incorrectWordRecyclerView: RecyclerView = findViewById(R.id.incorrectWordRecyclerView)
         incorrectWordRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
+        correctedWord = findViewById(R.id.Correct)
+        scoreText = findViewById(R.id.SumScore)
+        changeLanguageBtn = findViewById(R.id.changeLanguage)
         newCoin = findViewById(R.id.NewCoin)
         continueBtn = findViewById(R.id.ContinueBtn)
+        incorrectWordsHeader = findViewById(R.id.textView8)
+
         wrongs = intent.getSerializableExtra("wrongs") as HashMap<*, *>
         val wrongsList = ArrayList<Incorrect>()
-        Log.e("get words", "$wrongs")
-        for(key in wrongs.keys){
+        for(key in wrongs.keys)
             wrongsList.add(Incorrect(key as String, wrongs[key] as String))
-        }
-        incorrectWordsHeader = findViewById(R.id.textView8)
+
         score = intent.getIntExtra("scores", -1)
-        Log.e("get words", "$wrongs")
-        Log.e("score :", "$score")
+        val totalWords = intent.getIntExtra("totalWords", -1)
+
         if(wrongs.isNotEmpty()) {
             val adapter = IncorrectWordsRecyclerViewAdapter(wrongsList)
             incorrectWordRecyclerView.adapter = adapter
         } else {
             incorrectWordsHeader.text = "Congratulations! \nYou get every word corrected."
         }
+        val percentage = "%.0f".format(((totalWords.toDouble()-wrongs.size.toDouble())/totalWords.toDouble())*100)
+        correctedWord.text = "${getString(R.string.correct)}${percentage}% (${totalWords-wrongs.size}/${totalWords})"
+        scoreText.text = "${getString(R.string.score)}$score"
         score /= 10
         newCoin.text = " +$score"
         val newCoins = getEncryptedSharePreferencesLong("coins", this) + score
@@ -67,54 +74,8 @@ class SumScoreActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        // Add (3) Change language
-        changeLanguageBtn = findViewById(R.id.changeLanguage)
-
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
     }
-
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@SumScoreActivity)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
-            }
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
-    }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
-    }
-    //------ end (Add 4) -------
 }

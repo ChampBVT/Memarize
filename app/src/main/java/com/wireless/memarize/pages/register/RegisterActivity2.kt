@@ -1,19 +1,12 @@
 package com.wireless.memarize.pages.register
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -24,7 +17,7 @@ import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.dataModel.User
 import kotlinx.android.synthetic.main.activity_register_2.*
-import java.util.*
+import com.wireless.memarize.utils.*
 
 
 class RegisterActivity2 : AppCompatActivity() {
@@ -34,11 +27,13 @@ class RegisterActivity2 : AppCompatActivity() {
     private lateinit var petType: String
     private lateinit var database: FirebaseDatabase
     private lateinit var changeLanguageBtn : Button
+    private lateinit var spinnerPet: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_register_2)
+        spinnerPet = findViewById(R.id.spinnerPet)
         val adapter = ArrayAdapter.createFromResource(this,
             R.array.pet_array, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -47,57 +42,27 @@ class RegisterActivity2 : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         createBtn = findViewById(R.id.create)
         petName = findViewById(R.id.petName)
-        petType = spinnerPet.selectedItem.toString()
-
-        // Add (3) Change language
         changeLanguageBtn = findViewById(R.id.changeLanguage)
 
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
-    }
 
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@RegisterActivity2)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
+        spinnerPet.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+               petType = parent.getItemAtPosition(position) as String
             }
-            dialog.dismiss()
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
         }
-        val mDialog = mBuilder.create()
-        mDialog.show()
     }
 
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
+    private fun toast(){
+        Toast.makeText(this, "selected" + "languages[position]", Toast.LENGTH_SHORT).show()
     }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
-    }
-    //------ end (Add 4) -------
 
     override fun onStart() {
         super.onStart()
@@ -176,6 +141,7 @@ class RegisterActivity2 : AppCompatActivity() {
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
+        Log.e("petType", petType)
         sharedPreferences.edit()
             .putString("userName", userName)
             .putString("email", email)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -49,7 +48,6 @@ class LandingActivity : AppCompatActivity() {
                         petType = user.petType
                         coins = user.coins
                         setEncryptedSharePreferences(userName!!, email!!, uid, petName!!, petType!!, coins)
-                        //showToast(userName!!, email!!, uid)
                     }
                 }
 
@@ -58,14 +56,6 @@ class LandingActivity : AppCompatActivity() {
                 }
 
             })
-    }
-
-    private fun showToast(userName: String, email: String, uid: String) {
-        Toast.makeText(
-            this,
-            "Current status \nName: $userName\nEmail: $email\nuid: $uid",
-            Toast.LENGTH_LONG
-        ).show()
     }
 
     @SuppressLint("ApplySharedPref")

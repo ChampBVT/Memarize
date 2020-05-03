@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context=".pages.login.LoginActivity">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/gradient"
+                                                   tools:context=".pages.login.LoginActivity">
+
+    <Button
+        android:id="@+id/changeLanguage"
+        android:layout_width="51dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="682dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="@font/prompt_bold"
+        android:stateListAnimator="@null" android:text="@string/language" android:textColor="#FFFFFF"
+        android:textSize="16sp" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/login_bttn"
@@ -15,7 +30,7 @@
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_login_button"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:paddingLeft="60sp"
         android:paddingRight="60sp"
         android:text="@string/SignIn"
@@ -23,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_et" />
+        app:layout_constraintTop_toBottomOf="@+id/password_et"/>
 
     <Button
         android:id="@+id/register"
@@ -31,14 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="202dp"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/prompt"
         android:text="@string/CreateAccountButton"
         android:textColor="@color/bright_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_bttn" />
+        app:layout_constraintTop_toBottomOf="@+id/login_bttn"/>
 
     <EditText
         android:id="@+id/email_et"
@@ -49,7 +64,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_et"
         android:ems="10"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/prompt"
         android:hint="@string/Email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
@@ -57,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/password_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
     <EditText
         android:id="@+id/password_et"
@@ -68,7 +83,7 @@
         android:layout_marginBottom="96dp"
         android:background="@drawable/rounded_et"
         android:ems="10"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/prompt"
         android:hint="@string/Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
@@ -76,7 +91,7 @@
         app:layout_constraintBottom_toTopOf="@+id/login_bttn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_et" />
+        app:layout_constraintTop_toBottomOf="@+id/email_et"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -85,14 +100,14 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="76dp"
         android:contentDescription="@string/WelcomeTo"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:text="@string/WelcomeTo"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/WelcomeTo" />
+        tools:text="@string/WelcomeTo"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -100,13 +115,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="91dp"
         android:contentDescription="@string/Memarize"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:text="@string/Memarize"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/email_et"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:text="@string/Memarize" />
+        tools:text="@string/Memarize"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

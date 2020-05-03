@@ -1,25 +1,19 @@
 package com.wireless.memarize.pages.play;
 
 import android.animation.ObjectAnimator
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.wireless.memarize.R
+import com.wireless.memarize.utils.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.Mutex
 import kotlin.collections.HashMap
 
 
@@ -41,15 +35,12 @@ class QuestionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_question)
-
         database = FirebaseDatabase.getInstance()
         remainingTime = findViewById(R.id.remainTime)
         vocab = findViewById(R.id.Vocabulary)
         scoreText = findViewById(R.id.Score)
-        scoreText.text = "Score: $score"
-        scoreText.text = getString(R.string.score).plus("$score")
         choices = arrayListOf(
             findViewById(R.id.choice1),
             findViewById(R.id.choice2),
@@ -57,62 +48,20 @@ class QuestionActivity : AppCompatActivity() {
             findViewById(R.id.choice4)
         )
         chapterTitle = findViewById(R.id.Chapter)
-        words = intent.getSerializableExtra("words") as HashMap<*, *>
-        val title = intent.getStringExtra("chapterTitle")
-        Log.e("get title", title)
-        Log.e("get words", "$words")
-        wordsPool = words.clone() as HashMap<*, *>
-        chapterTitle.text = title
-
-        // Add (3) Change language
         changeLanguageBtn = findViewById(R.id.changeLanguage)
 
+        words = intent.getSerializableExtra("words") as HashMap<*, *>
+        val title = intent.getStringExtra("chapterTitle")
+
+        wordsPool = words.clone() as HashMap<*, *>
+        scoreText.text = "Score: $score"
+        scoreText.text = getString(R.string.score).plus("$score")
+        chapterTitle.text = title
+
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
     }
-
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@QuestionActivity)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
-            }
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
-    }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
-    }
-    //------ end (Add 4) -------
 
     override fun onStart() {
         super.onStart()
@@ -120,7 +69,7 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun startNewQuestion(firstQuestion : Boolean){
-        job = GlobalScope.launch { // launch new coroutine in the scope of runBlocking
+        job = GlobalScope.launch {
             while(words.isNotEmpty()){
                 if(!firstQuestion)
                     delay(1000)
@@ -130,9 +79,6 @@ class QuestionActivity : AppCompatActivity() {
             }
         }
         if(words.isEmpty()) {
-            Toast.makeText(
-                this, "No more question", Toast.LENGTH_SHORT
-            ).show();
             goToSumScore()
         }
     }
@@ -149,8 +95,8 @@ class QuestionActivity : AppCompatActivity() {
         this.runOnUiThread {
             choices[j].setBackgroundResource(R.drawable.choice_button)
             choices[j].setTextColor(resources.getColorStateList(R.color.white))
-            vocab.text = text//wordKeySet[i] as CharSequence?
-            choices[j].text = wordKeySet[i] as CharSequence?//text
+            vocab.text = text
+            choices[j].text = wordKeySet[i] as CharSequence?
         }
         choices[j].setOnClickListener {
             this.runOnUiThread {
@@ -158,7 +104,7 @@ class QuestionActivity : AppCompatActivity() {
                 choices[j].setTextColor(resources.getColorStateList(R.color.black))
                 remainingTime = findViewById(R.id.remainTime)
                 score+= remainingTime.progress
-                scoreText.text = "Score: $score"
+                scoreText.text = "${getString(R.string.score)}$score"
             }
             for (idx in choicesIdxPool)
                 choices[idx].setOnClickListener(null)
@@ -171,7 +117,7 @@ class QuestionActivity : AppCompatActivity() {
         for(index in choicesIdxPool){
             val wordsChoicePoolKeySet = ArrayList<Any>(wordsChoicePool.keys)
             val k = Random().nextInt(wordsChoicePool.size)
-            val textChoice = wordsChoicePoolKeySet[k] as CharSequence?//wordsChoicePool[wordsChoicePoolKeySet[k]] as CharSequence?
+            val textChoice = wordsChoicePoolKeySet[k] as CharSequence?
             this.runOnUiThread {
                 choices[index].setBackgroundResource(R.drawable.choice_button)
                 choices[index].setTextColor(resources.getColorStateList(R.color.white))
@@ -179,7 +125,6 @@ class QuestionActivity : AppCompatActivity() {
             }
             choices[index].setOnClickListener {
                 choices[index].setBackgroundResource(R.drawable.false_choice_button)
-                Log.e("wrong word", wordKeySet[i].toString())
                 wrongs[wordKeySet[i] as String] = words1[wordKeySet[i]] as String
                 for (idx in choicesIdxPool)
                     choices[idx].setOnClickListener(null)
@@ -198,6 +143,12 @@ class QuestionActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+        finish()
+    }
+
     private fun setProgressAnimate(pb: ProgressBar) {
         val animation =
             ObjectAnimator.ofInt(pb, "progress", 1000, 0)
@@ -206,19 +157,11 @@ class QuestionActivity : AppCompatActivity() {
         animation.start()
     }
 
-    private fun showToast() {
-        Toast.makeText(
-            this,
-            "หมดเวลาแล้วจ้า",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
     private fun goToSumScore() {
         val intent = Intent(this, SumScoreActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-        Log.e("get words", "$wrongs")
         intent.putExtra("wrongs", wrongs as HashMap<String, String>)
+        intent.putExtra("totalWords", wordsPool.size)
         intent.putExtra("scores", score)
         startActivity(intent)
         finish()

@@ -56,13 +56,13 @@ class ItemRecyclerViewAdapter(
                 setCurrentCoin()
                 Toast.makeText(
                     context,
-                    "Successfully ${items.action}",
+                    "${context.getString(R.string.success)} ${items.action} ${context.getString(R.string.success2)}",
                     Toast.LENGTH_SHORT
                 ).show()
             }else{
                 Toast.makeText(
                     context,
-                    "Not enough coins",
+                    context.getString(R.string.notenough),
                     Toast.LENGTH_SHORT
                 ).show()
             }

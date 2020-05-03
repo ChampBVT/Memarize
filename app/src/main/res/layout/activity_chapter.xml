@@ -7,6 +7,7 @@
     android:background="@drawable/gradient">
 
     <Button
+        android:visibility="invisible"
         android:id="@+id/changeLanguage"
         android:layout_width="51dp"
         android:layout_height="24dp"
@@ -15,7 +16,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="86dp"
         android:background="#00FFFFFF"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:stateListAnimator="@null"
         android:text="@string/language"
         android:textColor="#FFFFFF"
@@ -34,7 +35,7 @@
         android:layout_marginTop="104dp"
         android:layout_marginBottom="600dp"
         android:contentDescription="@string/WhereToStart"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/prompt_bold"
         android:text="@string/WhereToStart"
         android:textColor="@color/white"
         android:textSize="20sp"

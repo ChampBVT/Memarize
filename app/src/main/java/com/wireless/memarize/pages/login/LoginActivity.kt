@@ -1,13 +1,11 @@
 package com.wireless.memarize.pages.login
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
+import com.wireless.memarize.utils.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -27,7 +25,6 @@ import com.wireless.memarize.pages.main.MainActivity
 import com.wireless.memarize.R
 import com.wireless.memarize.pages.register.RegisterActivity
 import com.wireless.memarize.dataModel.User
-import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -49,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocate() // Add (2)
+        loadLocate(this)
         setContentView(R.layout.activity_login)
 
         emailEt = findViewById(R.id.email_et)
@@ -60,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         loginBtn.setOnClickListener{
-            //Toast.makeText(this, "Login Button pressed", Toast.LENGTH_LONG).show()
             loginBtn.isEnabled = false
             val email: String = emailEt.text.toString()
             val password: String = passwordEt.text.toString()
@@ -91,55 +87,12 @@ class LoginActivity : AppCompatActivity() {
 
         registerReceiver(broadcastReceiver, IntentFilter("Close_Login_Activity"))
 
-        // Add (3) Change language
         changeLanguageBtn = findViewById(R.id.changeLanguage)
 
         changeLanguageBtn.setOnClickListener {
-            displayChangeLanguage()
+            displayChangeLanguage(this, this)
         }
-        // ------ end (Add 3) -------
     }
-
-    // Add (4) Change language
-    private fun displayChangeLanguage() {
-        val listLang = arrayOf("EN", "TH")
-
-        val mBuilder = AlertDialog.Builder(this@LoginActivity)
-        mBuilder.setTitle("@string/Select_Language")
-        mBuilder.setSingleChoiceItems(listLang, -1)
-        { dialog, which ->
-            if (which == 0) {
-                setLocate("en")
-                recreate()
-            } else {
-                setLocate("th")
-                recreate()
-            }
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun setLocate(language: String?){
-        val locale = Locale(language)
-
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale= locale
-        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("myLanguage", language)
-        editor.apply()
-    }
-
-    private fun loadLocate() {
-        val sharedPreferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE)
-        val language = sharedPreferences.getString("myLanguage", "")
-        setLocate(language)
-    }
-    //------ end (Add 4) -------
 
     override fun onDestroy() {
         super.onDestroy()
